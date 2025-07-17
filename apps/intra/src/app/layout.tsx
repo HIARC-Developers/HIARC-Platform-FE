@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import React from 'react';
+import Header from '@/ui/components/Header';
+import Footer from '@/ui/components/Footer';
 
 const inter = Inter({
   variable: '--font-inter-sans',
@@ -21,13 +24,15 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): React.ReactElement {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} ${interMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${inter.variable} ${interMono.variable} antialiased`}>
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="flex flex-1 flex-col items-center justify-center">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
