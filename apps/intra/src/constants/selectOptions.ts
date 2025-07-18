@@ -21,4 +21,13 @@ export const selectOption: Record<string, SelectData[]> = {
     { value: '전자전기공학부', label: '전자전기공학부' },
     { value: '기타', label: '기타' },
   ],
+  '복수전공 여부': [
+    { label: '복수전공 미진행', value: '복수전공 미진행' },
+    { label: '복수전공 진행', value: '복수전공 진행' },
+  ],
+  재학여부: [
+    { label: '재학', value: '재학' },
+    { label: '일반휴학', value: '일반휴학' },
+    { label: '군휴학', value: '군휴학' },
+  ],
 };
