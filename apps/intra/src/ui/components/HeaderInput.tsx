@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function HeaderInput(): React.ReactElement {
   return (
-    <div className="relative w-full max-w-sm">
+    <div className="relative w-[328px]">
       <Image
         src="/ZoomIn.svg"
         alt="Search icon"
@@ -14,7 +14,7 @@ export default function HeaderInput(): React.ReactElement {
       <Input
         type="text"
         placeholder="Placeholder"
-        className="w-60 rounded-md bg-gray-100 px-3 py-2 pl-10 text-sm"
+        className="w-full rounded-md bg-gray-100 px-3 py-2 pl-10 text-sm"
       />
     </div>
   );
