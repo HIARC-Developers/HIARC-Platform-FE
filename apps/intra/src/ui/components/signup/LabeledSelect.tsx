@@ -15,7 +15,6 @@ export default function LabeledSelect({ label }: { label: string }): React.React
       <select
         value={selected}
         onChange={(event) => setSelected(event.target.value)}
-        defaultValue=""
         className={cn(
           'text-muted-foreground h-[44px] appearance-none',
           'border-input w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition outline-none',
