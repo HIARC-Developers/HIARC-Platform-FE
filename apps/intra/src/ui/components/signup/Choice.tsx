@@ -17,7 +17,7 @@ export default function Choice({
     <button
       style={{ width: `${width}%` }}
       onClick={onClick}
-      className={`rounded-md border px-4 py-2 text-sm font-medium ${
+      className={`h-[44px] rounded-md border px-4 py-2 text-sm font-medium ${
         isSelected
           ? 'border-ring ring-ring/50 text-primary font-semibold ring-[3px]'
           : 'border-gray-300 bg-white text-gray-400'
