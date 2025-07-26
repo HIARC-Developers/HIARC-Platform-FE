@@ -28,7 +28,7 @@ export default function StudyCard({
   state,
 }: StudyCardProps): React.ReactElement {
   return (
-    <div className="flex h-[173px] w-[435px] flex-col gap-2 rounded-lg border border-gray-200  px-5 py-5">
+    <div className="flex h-[173px] min-w-[435px] flex-col gap-2 rounded-lg border border-gray-200  px-5 py-5">
       <div className="flex gap-2">
         <StudyGrayChip type="schedule" title={time} />
         <StudyGrayChip type="delivery" title={delivery} />
