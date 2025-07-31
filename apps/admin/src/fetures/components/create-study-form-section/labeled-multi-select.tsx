@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
-import { cn } from '../../lib/utils';
-import { Button } from '../button';
-import { Label } from '../label/label';
-interface LabeledSelectButtonProps {
+import { cn } from '@hiarc-platform/ui';
+import { Button } from '@hiarc-platform/ui';
+import { Label } from '@hiarc-platform/ui';
+interface LabeledMultiSelectProps {
   label: string;
   showLabel?: boolean;
   required?: boolean;
@@ -11,14 +11,19 @@ interface LabeledSelectButtonProps {
   className?: string;
 }
 
-function LabeledSelectButton({
+function LabeledMultiSelect({
   label,
   showLabel = true,
   required = false,
   options,
   className = '',
-}: LabeledSelectButtonProps): React.ReactElement {
-  const [selected, setSelected] = useState<string>('');
+}: LabeledMultiSelectProps): React.ReactElement {
+  const [selected, setSelected] = useState<string[]>([]);
+  const toggleOption = (option: string) => {
+    setSelected((prev) =>
+      prev.includes(option) ? prev.filter((o) => o !== option) : [...prev, option]
+    );
+  };
 
   return (
     <div className={cn('flex-w-full w-full flex-col', className)}>
@@ -35,8 +40,8 @@ function LabeledSelectButton({
         {options.map((option) => (
           <Button
             key={option}
-            variant={selected === option ? 'line' : 'unselected'}
-            onClick={() => setSelected(option)}
+            variant={selected.includes(option) ? 'line' : 'unselected'}
+            onClick={() => toggleOption(option)}
             className="h-11 w-full"
           >
             {option}
@@ -47,4 +52,4 @@ function LabeledSelectButton({
   );
 }
 
-export { LabeledSelectButton };
+export { LabeledMultiSelect };

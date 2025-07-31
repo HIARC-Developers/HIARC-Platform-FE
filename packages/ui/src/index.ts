@@ -7,6 +7,7 @@ export * from './components/dialog/dialog';
 export * from './components/divider';
 export * from './components/icon-button';
 export * from './components/input/input';
+export * from './components/input/labeled-textarea';
 export * from './components/input/labeled-input';
 export * from './components/label/label';
 export * from './components/label/title';
