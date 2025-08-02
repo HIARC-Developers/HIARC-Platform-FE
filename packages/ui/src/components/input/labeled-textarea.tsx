@@ -30,7 +30,7 @@ function LabeledTextarea({
         placeholder={placeholder}
         value={value}
         onChange={(event) => onChange?.(event.target.value)}
-        className="h-11 w-full border-gray-200"
+        className={className}
         {...props}
       />
     </div>

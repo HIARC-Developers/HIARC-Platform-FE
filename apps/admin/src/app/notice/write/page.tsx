@@ -1,8 +1,8 @@
 'use client';
-import { CreateStudyFrom } from '@/features/components/create-study-form-section';
+import NoticeWrite from '@/features/components/notice-write-section';
 import { Label } from '@hiarc-platform/ui';
 import { Title } from '@hiarc-platform/ui';
-export default function CreateStudyPage(): React.ReactElement {
+export default function WriteNoticePage(): React.ReactElement {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-6">
       <div className="flex w-full max-w-[1200px] flex-col items-center gap-6">
@@ -16,12 +16,12 @@ export default function CreateStudyPage(): React.ReactElement {
         </button>
         <div className="flex w-full items-center justify-between">
           <Title size="sm" weight="bold">
-            스터디 개설 정보
+            공지사항 작성
           </Title>
         </div>
-        <div className=" h-px w-full bg-gray-700"></div>
+        <div className="h-px w-full bg-gray-700"></div>
       </div>
-      <CreateStudyFrom />
+      <NoticeWrite />
     </main>
   );
 }

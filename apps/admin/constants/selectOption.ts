@@ -27,4 +27,15 @@ export const selectOption: Record<string, SelectData[]> = {
     { value: '26년 1학기', label: '26년 1학기' },
     { value: '26년 2학기', label: '26년 2학기' },
   ],
+  카테고리: [
+    { value: '스터디', label: '스터디' },
+    { value: '하이팅', label: '하이팅' },
+    { value: '학회행사', label: '학회행사' },
+    { value: '모집', label: '모집' },
+  ],
+  스터디: [
+    { value: '기초스터디', label: '기초스터디' },
+    { value: '초급스터디', label: '초급스터디' },
+    { value: '중급스터디', label: '중급스터디' },
+  ],
 };

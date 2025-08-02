@@ -13,7 +13,7 @@ export default function Header(): React.ReactElement {
   const pathname = usePathname();
   const tabItems = [
     { label: '학회원관리', value: 'manage' },
-    { label: '공지사항', value: 'notice' },
+    { label: '공지사항', value: 'notice/write' },
     { label: '스터디', value: 'study/information' },
     { label: '대회', value: 'competition' },
     { label: '운영진', value: 'admin' },
