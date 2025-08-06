@@ -3,7 +3,7 @@ import { LabeledSelector } from '@hiarc-platform/ui';
 import { selectOption } from 'constants/selectOption';
 export default function SelectButtonSection(): React.ReactElement {
   return (
-    <div className="flex w-full items-end justify-center gap-4 rounded-lg border border-gray-200 p-6">
+    <div className="flex w-full min-w-[1200px] items-end justify-center gap-4 rounded-lg border border-gray-200 p-6">
       <LabeledSelector
         label="카테고리"
         options={selectOption['카테고리']}
