@@ -40,17 +40,18 @@ export function RecruitManageSection(): React.ReactElement {
   });
 
   // 모집 상태 확인 (API에서 가져온 isRecruit 값 사용)
-  const isRecruit = recruitmentInfo?.isRecruit || false;
+  const isRecruitmentExist = recruitmentInfo?.isRecruitmentExist || false;
+  const isApplicationStatusEditable = recruitmentInfo?.isApplicationStatusEditable || false;
 
   //모집중이 아닐때
-  if (!isRecruit) {
+  if (!isRecruitmentExist) {
     return (
       <div className="flex min-h-screen w-full flex-col items-center justify-between py-[30%]">
         <div className="flex w-[344px] flex-col items-center gap-6">
           <Label size="lg">현재는 학회원 모집이 진행되고 있지 않습니다.</Label>
           <Button
             onClick={() => {
-              DialogUtil.showComponent(<RecruitStartDialog isRecruit={isRecruit} />);
+              DialogUtil.showComponent(<RecruitStartDialog isRecruit={isRecruitmentExist} />);
             }}
           >
             모집 시작하기
@@ -120,7 +121,11 @@ export function RecruitManageSection(): React.ReactElement {
         <div className="flex items-center justify-between text-md">
           <div>신청 명단 총 {recruitmentData?.totalElements}건</div>
         </div>
-        <MemberRecruitTable pageableModel={recruitmentData} onPageChange={setPage} />
+        <MemberRecruitTable
+          pageableModel={recruitmentData}
+          onPageChange={setPage}
+          showApprovalButton={isApplicationStatusEditable}
+        />
       </div>
     </div>
   );

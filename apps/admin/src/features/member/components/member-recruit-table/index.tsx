@@ -3,26 +3,20 @@ import { useTable } from '@hiarc-platform/util';
 import { useMemo, useState } from 'react';
 import { getStudentApplyListColumns } from './student-apply-list-column';
 import { PageableModel, StudentApply } from '@hiarc-platform/shared';
-import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
-import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
 
 interface MemberRecruitTableProps {
+  showApprovalButton?: boolean;
   pageableModel?: PageableModel<StudentApply>;
   className?: string;
   onPageChange?(page: number): void;
 }
 
 export function MemberRecruitTable({
+  showApprovalButton = false,
   pageableModel,
   className,
   onPageChange,
 }: MemberRecruitTableProps): React.ReactElement {
-  const { selectedSemesterId } = useSelectedSemester();
-  const { data: currentSemester } = useCurrentSemester();
-
-  const showApprovalButton =
-    selectedSemesterId === currentSemester?.currentSemester?.semesterId?.toString();
-
   const columns = useMemo(
     () => getStudentApplyListColumns(showApprovalButton),
     [showApprovalButton]
