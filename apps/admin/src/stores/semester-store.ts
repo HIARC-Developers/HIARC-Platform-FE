@@ -55,29 +55,44 @@ export const useSemesterStore = create<SemesterState>((set, get) => ({
     }
 
     set({ isLoading: true, error: null });
+    
     try {
-      // 현재 학기와 전체 학기 목록을 병렬로 가져오기
-      const [currentSemesterResponse, semesters] = await Promise.all([
-        semesterApi.GET_CURRENT_SEMESTER(),
-        semesterApi.GET_SEMESTER_LIST(),
-      ]);
-
+      // 먼저 학기 목록을 가져옵니다
+      const semesters = await semesterApi.GET_SEMESTER_LIST();
+      
       const semesterOptions = semesters.map((semester) => ({
         label: `${semester.semesterYear}년 ${semester.semesterType === 'FIRST' ? '1학기' : '2학기'}`,
         value: semester.semesterId?.toString() || '',
       }));
 
-      const currentSemesterId = currentSemesterResponse.currentSemester?.semesterId?.toString();
+      let selectedSemesterId: string | null = null;
+
+      try {
+        // 현재 학기를 가져오려고 시도
+        const currentSemesterResponse = await semesterApi.GET_CURRENT_SEMESTER();
+        const currentSemesterId = currentSemesterResponse.currentSemester?.semesterId?.toString();
+        
+        if (currentSemesterId && semesterOptions.some(option => option.value === currentSemesterId)) {
+          selectedSemesterId = currentSemesterId;
+        }
+      } catch (currentSemesterError) {
+        console.warn('Failed to get current semester, will use latest semester:', currentSemesterError);
+      }
+
+      // 현재 학기를 가져오지 못했거나 목록에 없으면 가장 마지막(최신) 학기를 선택
+      if (!selectedSemesterId && semesterOptions.length > 0) {
+        selectedSemesterId = semesterOptions[semesterOptions.length - 1].value;
+      }
 
       set({
         semesters,
         semesterOptions,
+        selectedSemesterId,
         isLoading: false,
-        // 현재 학기를 기본값으로 설정
-        selectedSemesterId: currentSemesterId || semesterOptions[0]?.value || null,
+        error: null,
       });
     } catch (error) {
-      console.error('Failed to initialize with current semester:', error);
+      console.error('Failed to initialize semester store:', error);
       set({
         error: error instanceof Error ? error.message : 'Failed to initialize semester',
         isLoading: false,
