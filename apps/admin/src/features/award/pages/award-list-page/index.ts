@@ -1,0 +1,1 @@
+export { AwardListPage } from './award-list-page';

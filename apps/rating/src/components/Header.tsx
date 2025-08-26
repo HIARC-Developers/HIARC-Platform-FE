@@ -87,11 +87,11 @@ const Header = () => {
 
   return (
     <Wrapper>
-      {!isMobile && <HIARC href="https://hiarchomepage.web.app/">HI-ARC</HIARC>}
+      {!isMobile && <HIARC href="https://intra.hiarc-official.com">HI-ARC</HIARC>}
 
       {isMobile && (
         <MobileHeaderWrapper>
-          <HIARC href="https://hiarchomepage.web.app/">HI-ARC</HIARC>
+          <HIARC href="https://intra.hiarc-official.com">HI-ARC</HIARC>
           <HitingWrapper onClick={() => navigate('/')}>
             <img src={Home} alt="home" />
           </HitingWrapper>

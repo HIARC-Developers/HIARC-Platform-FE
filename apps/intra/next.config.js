@@ -1,6 +1,28 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@hiarc-platform/ui', '@hiarc-platform/util'],
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: https:",
+              "font-src 'self' data:",
+              "connect-src 'self' https://test.hiarc-official.com https://*.hiarc-official.com http://localhost:* https://localhost:*",
+              "frame-ancestors 'none'",
+              "form-action 'self'"
+            ].join('; ')
+          }
+        ]
+      }
+    ];
+  }
 };
 
 module.exports = nextConfig;

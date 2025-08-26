@@ -1,0 +1,1 @@
+export { StudyCreatePage } from './study-create-page';

@@ -21,10 +21,20 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@hiarc-platform/shared": ["../../packages/shared/src"],
       "@hiarc-platform/ui": ["../../packages/ui/src"],
       "@hiarc-platform/util": ["../../packages/util/src"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "types/**/*.d.ts",
+    "../../packages/shared/src/types/award/award.ts",
+    "../../packages/shared/src/types/study/create-assignment-request.ts",
+    "../../packages/shared/src/types/study/study-initial-form.ts"
+  ],
   "exclude": ["node_modules"]
 }

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --experimental-https --hostname local.test.hiarc-official.com",
     "build": "next build",
     "start": "next start",
     "lint": "eslint src/",
@@ -13,11 +13,17 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@hiarc-platform/shared": "workspace:*",
+    "@hiarc-platform/ui": "workspace:*",
+    "@hiarc-platform/util": "workspace:*",
+    "@tanstack/react-query": "^5.84.1",
+    "axios": "^1.7.9",
     "next": "14.0.0",
+    "next-auth": "^4.24.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@hiarc-platform/ui": "workspace:*",
-    "@hiarc-platform/util": "workspace:*"
+    "zod": "^4.0.14",
+    "zustand": "^5.0.7"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
@@ -27,9 +33,9 @@
     "eslint": "^8.0.0",
     "eslint-config-next": "14.0.0",
     "eslint-config-prettier": "^9.1.0",
+    "postcss": "^8.0.0",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.9",
-    "postcss": "^8.0.0",
     "tailwindcss": "^3.0.0",
     "typescript": "^5.0.0"
   }

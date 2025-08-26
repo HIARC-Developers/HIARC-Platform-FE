@@ -15,6 +15,7 @@
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
     "axios": "^1.7.9",
+    "date-fns": "^4.1.0",
     "jotai": "^2.11.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -35,10 +36,10 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.11",
-    "typescript": "^5",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.9",
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5"
   }

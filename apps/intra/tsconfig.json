@@ -21,6 +21,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@hiarc-platform/shared": ["../../packages/shared/src"],
       "@hiarc-platform/ui": ["../../packages/ui/src"],
       "@hiarc-platform/util": ["../../packages/util/src"]
     }

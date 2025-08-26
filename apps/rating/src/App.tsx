@@ -6,6 +6,7 @@ import SearchPage from './page/SearchPage';
 import AdminPage from './page/AdminPage';
 import { AdminLoginPage } from './page/AdminLoginPage';
 import { AdminGuard } from './guards/AdminGuard';
+import TestPage from './page/TestPage';
 function App() {
   return (
     <Routes>
@@ -13,7 +14,7 @@ function App() {
       <Route path="/div" element={<DivPage />} />
       <Route path="/streak" element={<StreakPage />} />
       <Route path="/search" element={<SearchPage />} />
-
+      <Route path="/test" element={<TestPage />} />
       <Route
         path="/admin"
         element={

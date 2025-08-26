@@ -1,47 +1,31 @@
 'use client';
 
+import Image from 'next/image';
 import * as React from 'react';
-import * as AvatarPrimitive from '@radix-ui/react-avatar';
-
+import { useState } from 'react';
 import { cn } from '../lib/utils';
 
-function Avatar({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root>): React.ReactElement {
-  return (
-    <AvatarPrimitive.Root
-      data-slot="avatar"
-      className={cn('relative flex size-8 shrink-0 overflow-hidden rounded-full', className)}
-      {...props}
-    />
-  );
+interface AvatarProps {
+  className?: string;
+  imageUrl?: string;
+  alt?: string;
 }
 
-function AvatarImage({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Image>): React.ReactElement {
+export function Avatar({ className, imageUrl, alt }: AvatarProps): React.ReactElement {
+  const [hasError, setHasError] = useState(false);
+  const isFallback = !imageUrl || hasError;
+  const imgSrc = isFallback ? '/shared-assets/User.svg' : imageUrl;
+
   return (
-    <AvatarPrimitive.Image
-      data-slot="avatar-image"
-      className={cn('aspect-square size-full', className)}
-      {...props}
-    />
+    <div className="flex size-10 items-center justify-center overflow-hidden rounded-full bg-gray-300">
+      <Image
+        src={imgSrc}
+        alt={alt || 'User Avatar'}
+        width={40}
+        height={40}
+        className={cn(isFallback ? 'h-5 w-5' : 'size-10 object-cover', className)}
+        onError={() => setHasError(true)}
+      />
+    </div>
   );
 }
-
-function AvatarFallback({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Fallback>): React.ReactElement {
-  return (
-    <AvatarPrimitive.Fallback
-      data-slot="avatar-fallback"
-      className={cn('flex size-full items-center justify-center rounded-full bg-muted', className)}
-      {...props}
-    />
-  );
-}
-
-export { Avatar, AvatarImage, AvatarFallback };
