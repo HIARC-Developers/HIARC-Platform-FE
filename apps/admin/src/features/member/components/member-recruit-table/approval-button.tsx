@@ -17,9 +17,10 @@ export function ApprovalButton({
   const isCurrentSemesterSelected =
     selectedSemesterId === currentSemester?.currentSemester?.semesterId?.toString();
 
-  if (!isCurrentSemesterSelected) {
-    return null;
-  }
+  // 디버깅: 조건을 임시로 제거하여 버튼이 항상 렌더링되도록 함
+  // if (!isCurrentSemesterSelected) {
+  //   return null;
+  // }
 
   const isApproved = studentApply.applicationStatus === 'APPROVED';
 

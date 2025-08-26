@@ -1,5 +1,6 @@
 export interface Recruitment {
-  isRecruit: boolean;
+  isRecruitmentExist: boolean;
+  isApplicationStatusEditable: boolean;
   startDate: string;
   endDate: string;
   generalDescription: string;
@@ -11,7 +12,8 @@ export const Recruitment = {
   fromJson(json: unknown): Recruitment {
     const data = (json || {}) as Record<string, unknown>;
     return {
-      isRecruit: (data.isRecruit as boolean) || false,
+      isRecruitmentExist: (data.isRecruitmentExist as boolean) || false,
+      isApplicationStatusEditable: (data.isApplicationStatusEditable as boolean) || false,
       startDate: (data.startDate as string) || '',
       endDate: (data.endDate as string) || '',
       generalDescription: (data.generalDescription as string) || '',
