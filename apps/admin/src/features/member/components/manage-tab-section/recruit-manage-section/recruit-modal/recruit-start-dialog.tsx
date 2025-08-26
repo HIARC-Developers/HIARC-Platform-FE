@@ -1,9 +1,7 @@
 'use client';
 
 import { useStartRecruitment } from '@/features/recruitment/hooks/mutation/use-start-recruitment';
-import { useUpdateRecruitment } from '@/features/recruitment/hooks/mutation/use-update-recruitment';
 import { useSelectedSemester } from '@/shared/hooks/use-semester-store';
-import { UpdateRecruitmentRequest } from '@hiarc-platform/shared';
 import {
   Dialog,
   DialogContent,
@@ -36,7 +34,13 @@ export function RecruitStartDialog({
   const handleStartRecruit = async (): Promise<void> => {
     try {
       if (startDate && endDate) {
-        startRecruitment(Number(selectedSemesterId));
+        startRecruitment({
+          semesterId: Number(selectedSemesterId),
+          data: {
+            startDate: startDate.toISOString().split('T')[0],
+            endDate: endDate.toISOString().split('T')[0],
+          },
+        });
 
         DialogUtil.hideAllDialogs();
       } else {
