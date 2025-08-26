@@ -5,3 +5,8 @@ export interface UpdateRecruitmentRequest {
   militaryDescription?: string;
   greetingDescription?: string;
 }
+
+export interface StartRecruitmentRequest {
+  startDate?: string;
+  endDate?: string;
+}

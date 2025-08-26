@@ -2,6 +2,7 @@ import { apiClient } from '@/shared/api/client';
 import {
   PageableModel,
   Recruitment,
+  StartRecruitmentRequest,
   StudentApply,
   UpdateRecruitmentRequest,
 } from '@hiarc-platform/shared';
@@ -39,8 +40,8 @@ export const recruitmentApi = {
    * @param semesterId - 모집을 시작할 학기의 ID입니다.
    * @returns void
    */
-  START_RECRUITMENT: async (semesterId: number): Promise<void> => {
-    await apiClient.post<void>(`/admin/recruitment/${semesterId}`);
+  START_RECRUITMENT: async (semesterId: number, data: StartRecruitmentRequest): Promise<void> => {
+    await apiClient.post<void>(`/admin/recruitment/${semesterId}`, data);
   },
 
   /**
