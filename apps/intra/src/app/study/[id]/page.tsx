@@ -2,12 +2,15 @@
 
 import { PageLayout } from '@hiarc-platform/ui';
 import { DesktopStudyDetailPage, MobileStudyDetailPage } from '@/features/study/pages/study-detail';
+import { RestrictedPageGuard } from '@/components/restricted-page-guard';
 
 export default function StudyPage(): React.ReactElement {
   return (
-    <PageLayout
-      desktopChildren={<DesktopStudyDetailPage />}
-      mobileChildren={<MobileStudyDetailPage />}
-    />
+    <RestrictedPageGuard>
+      <PageLayout
+        desktopChildren={<DesktopStudyDetailPage />}
+        mobileChildren={<MobileStudyDetailPage />}
+      />
+    </RestrictedPageGuard>
   );
 }

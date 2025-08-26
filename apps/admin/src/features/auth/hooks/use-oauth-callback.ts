@@ -2,7 +2,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { authApi } from '../api/auth';
 import { useAuthStore } from '../../../shared/store/auth-store';
-import { DialogUtil } from '@hiarc-platform/ui';
 
 export default function useOAuthCallback(): { isProcessing: boolean } {
   const router = useRouter();

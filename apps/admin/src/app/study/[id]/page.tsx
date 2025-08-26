@@ -6,6 +6,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';
 import React, { useState, useEffect } from 'react';
 import { FadeIn } from '@hiarc-platform/ui';
+import { RestrictedPageGuard } from '@/components/restricted-page-guard';
 
 export default function StudyPage(): React.ReactElement {
   const router = useRouter();
@@ -65,5 +66,9 @@ export default function StudyPage(): React.ReactElement {
     </FadeIn>
   );
 
-  return <PageLayout>{contentComponent}</PageLayout>;
+  return (
+    <RestrictedPageGuard>
+      <PageLayout>{contentComponent}</PageLayout>
+    </RestrictedPageGuard>
+  );
 }

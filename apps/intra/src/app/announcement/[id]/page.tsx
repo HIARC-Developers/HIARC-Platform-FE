@@ -5,12 +5,15 @@ import {
   DesktopAnnouncementDetailPage,
   MobileAnnouncementDetailPage,
 } from '@/features/announcement/pages/announcement-detail';
+import { RestrictedPageGuard } from '@/components/restricted-page-guard';
 
 export default function AnnouncementDetail(): React.ReactElement {
   return (
-    <PageLayout
-      desktopChildren={<DesktopAnnouncementDetailPage />}
-      mobileChildren={<MobileAnnouncementDetailPage />}
-    />
+    <RestrictedPageGuard>
+      <PageLayout
+        desktopChildren={<DesktopAnnouncementDetailPage />}
+        mobileChildren={<MobileAnnouncementDetailPage />}
+      />
+    </RestrictedPageGuard>
   );
 }

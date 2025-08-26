@@ -45,10 +45,10 @@ export function AuthenticatedUserSection(): React.ReactElement {
       return;
     }
 
-    if (myInfo?.memberRole === 'GUEST' || myInfo?.memberRole === 'ASSOCIATE') {
-      DialogUtil.showError('승인되지 않았습니다. 조금만 기다려주세요.');
-      return;
-    }
+    // if (myInfo?.memberRole === 'GUEST' || myInfo?.memberRole === 'ASSOCIATE') {
+    //   DialogUtil.showError('승인되지 않았습니다. 조금만 기다려주세요.');
+    //   return;
+    // }
 
     router.push('/my');
   };
@@ -126,11 +126,13 @@ export function AuthenticatedUserSection(): React.ReactElement {
         size="lg"
         onClick={handleMyPage}
       />
-      {myInfo?.bojHandle && myInfo?.memberRole !== 'GUEST' && myInfo?.memberRole !== 'ASSOCIATE' && (
-        <Button size="sm" className="bg-primary-100" onClick={handleAttendanceCheck}>
-          출석체크
-        </Button>
-      )}
+      {myInfo?.bojHandle &&
+        myInfo?.memberRole !== 'GUEST' &&
+        myInfo?.memberRole !== 'ASSOCIATE' && (
+          <Button disabled size="sm" className="bg-primary-100" onClick={handleAttendanceCheck}>
+            출석체크
+          </Button>
+        )}
       <div className="relative">
         <Button
           variant="line_secondary"

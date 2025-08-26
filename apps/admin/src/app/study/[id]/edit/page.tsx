@@ -7,6 +7,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useStudy } from '@/features/study/hooks';
 import React, { useState, useEffect } from 'react';
 import { FadeIn } from '@/components/fade-in';
+import { RestrictedPageGuard } from '@/components/restricted-page-guard';
 
 export default function EditStudyPage(): React.ReactElement {
   const router = useRouter();
@@ -58,5 +59,9 @@ export default function EditStudyPage(): React.ReactElement {
     </FadeIn>
   );
 
-  return <PageLayout>{contentComponent}</PageLayout>;
+  return (
+    <RestrictedPageGuard>
+      <PageLayout>{contentComponent}</PageLayout>
+    </RestrictedPageGuard>
+  );
 }

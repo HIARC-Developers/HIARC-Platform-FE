@@ -25,6 +25,7 @@ module.exports = {
     'max-w-[1200px]',
     'max-h-[350px]',
     'max-h-[242px]',
+    'min-h-[400px]',
     'h-[242px]',
     'h-[46.5px]',
     'h-[10px]',
