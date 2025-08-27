@@ -11,7 +11,7 @@ export function getCookie(name: string): string | null {
   if (typeof document === 'undefined') {
     return null;
   }
-  
+
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) {
@@ -39,13 +39,13 @@ export function hasAccessToken(): boolean {
 export function deleteCookie(name: string, domain?: string, path: string = '/'): void {
   // 쿠키를 삭제하려면 expires를 과거 날짜로 설정
   let cookieString = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=${path}`;
-  
+
   if (domain) {
     cookieString += `; domain=${domain}`;
   }
-  
+
   document.cookie = cookieString;
-  
+
   console.log(`Cookie deleted: ${name}`);
 }
 
@@ -58,13 +58,14 @@ export function deleteAccessCookie(): void {
     '.test.hiarc-official.com',
     'test.hiarc-official.com',
     'local.test.hiarc-official.com',
-    '.local.test.hiarc-official.com'
+    '.local.test.hiarc-official.com',
+    '.hiarc-official.com',
   ];
-  
-  domains.forEach(domain => {
+
+  domains.forEach((domain) => {
     deleteCookie('access', domain, '/');
   });
-  
+
   // 도메인 없이도 시도
   deleteCookie('access');
 }
@@ -74,10 +75,10 @@ export function deleteAccessCookie(): void {
  */
 export function clearAllAuthData(): void {
   console.log('[clearAllAuthData] 시작');
-  
+
   // 쿠키 삭제
   deleteAccessCookie();
-  
+
   // localStorage에서 auth 데이터 삭제 (약간의 지연 후)
   setTimeout(() => {
     try {
@@ -89,6 +90,6 @@ export function clearAllAuthData(): void {
       console.error('Failed to clear localStorage auth data:', error);
     }
   }, 100);
-  
+
   console.log('[clearAllAuthData] 완료');
 }
