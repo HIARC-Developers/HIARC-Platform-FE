@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { useAuthStore } from '../store/auth-store';
 import { DialogUtil } from '@hiarc-platform/ui';
+import { clearAllAuthData } from '../utils/cookie-utils';
 
 // In development, use Next.js API route proxy to avoid CORS issues
 // In production, use direct API calls
@@ -119,7 +120,7 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
 
       clearAuth();
-      localStorage.removeItem('auth-storage');
+      clearAllAuthData();
 
       // 401 에러 다이얼로그 표시
       DialogUtil.showError('로그인이 만료되었거나 권한이 없습니다. 다시 로그인해주세요.', () => {

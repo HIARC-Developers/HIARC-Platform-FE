@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '../store/auth-store';
 import { DialogUtil } from '@hiarc-platform/ui';
+import { clearAllAuthData } from '../utils/cookie-utils';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
@@ -104,9 +105,7 @@ apiClient.interceptors.response.use(
 
       // 인증 실패 시 모든 인증 정보 삭제
       clearAuth();
-
-      // localStorage도 완전히 정리
-      localStorage.removeItem('auth-storage');
+      clearAllAuthData();
 
       // 401 에러 다이얼로그 표시
       DialogUtil.showError('로그인이 만료되었습니다. 다시 로그인해주세요.', () => {
