@@ -7,6 +7,10 @@ export const BrowserUtils = {
    * 현재 브라우저가 인앱 브라우저인지 감지합니다
    */
   isInAppBrowser(): boolean {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return false;
+    }
+    
     const userAgent = navigator.userAgent || navigator.vendor;
     
     // iOS 인앱 브라우저들
@@ -49,6 +53,10 @@ export const BrowserUtils = {
    * 현재 URL을 외부 브라우저로 열도록 안내합니다
    */
   openInExternalBrowser(url?: string): void {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return;
+    }
+    
     const targetUrl = url || window.location.href;
     
     if (this.isInAppBrowser()) {
@@ -87,6 +95,10 @@ export const BrowserUtils = {
    * 인앱 브라우저 경고 메시지 표시
    */
   showInAppBrowserWarning(): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    
     const message = '🚫 구글 로그인 제한 안내\n\n' +
                    '현재 앱 내 브라우저에서는 Google 정책에 의해 로그인이 제한됩니다.\n\n' +
                    '✅ 해결 방법:\n' +

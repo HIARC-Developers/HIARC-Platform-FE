@@ -8,12 +8,6 @@ export const useDownloadApplicantExcel = (): UseMutationResult<void, Error, numb
       try {
         const response = await recruitmentApi.DOWNLOAD_APPLICANT_EXCEL(semesterId);
 
-          status: response.status,
-          contentType: response.headers['content-type'],
-          dataSize: response.data?.size,
-          dataType: typeof response.data,
-        });
-
         // 응답 데이터가 Blob인지 확인
         if (!(response.data instanceof Blob)) {
           throw new Error('응답 데이터가 Blob 형태가 아닙니다.');
@@ -26,10 +20,6 @@ export const useDownloadApplicantExcel = (): UseMutationResult<void, Error, numb
 
         const blob = new Blob([response.data], { type: contentType });
 
-          size: blob.size,
-          type: blob.type,
-        });
-
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
@@ -38,7 +28,6 @@ export const useDownloadApplicantExcel = (): UseMutationResult<void, Error, numb
         link.click();
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
-
       } catch (error) {
         throw error;
       }
