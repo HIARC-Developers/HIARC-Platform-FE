@@ -8,10 +8,8 @@ export function RecruitManageModalTrigger(): React.ReactElement {
     DialogUtil.showComponent(
       <RecruitManageDialog
         onSave={async () => {
-          console.log('Recruit manage dialog saved');
         }}
         onCancel={() => {
-          console.log('Recruit manage dialog cancelled');
         }}
       />
     );

@@ -72,7 +72,6 @@ export function StudySearchSection({
           onSearchChange?.(params);
         }}
         onCancel={() => {
-          console.log('Study search cancelled');
         }}
         initialValues={{
           studyName: searchTitle,

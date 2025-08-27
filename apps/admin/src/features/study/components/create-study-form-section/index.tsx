@@ -186,7 +186,6 @@ export function CreateStudyForm({
         });
       }
     } catch (error) {
-      console.error(isEditMode ? '스터디 수정 실패:' : '스터디 생성 실패:', error);
       DialogUtil.showError(
         isEditMode ? '스터디 수정에 실패했습니다.' : '스터디 생성에 실패했습니다.'
       );

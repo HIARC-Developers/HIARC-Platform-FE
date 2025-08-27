@@ -45,8 +45,6 @@ export function deleteCookie(name: string, domain?: string, path: string = '/'):
   }
   
   document.cookie = cookieString;
-  
-  console.log(`Cookie deleted: ${name}`);
 }
 
 /**
@@ -73,22 +71,14 @@ export function deleteAccessCookie(): void {
  * 로그아웃 시 모든 인증 관련 데이터를 삭제합니다
  */
 export function clearAllAuthData(): void {
-  console.log('[clearAllAuthData] 시작');
-  
   // 쿠키 삭제
   deleteAccessCookie();
   
   // localStorage에서 auth 데이터 삭제 (약간의 지연 후)
   setTimeout(() => {
     try {
-      console.log('[clearAllAuthData] localStorage 삭제 전:', localStorage.getItem('auth-storage'));
       localStorage.removeItem('auth-storage');
-      console.log('[clearAllAuthData] localStorage 삭제 후:', localStorage.getItem('auth-storage'));
-      console.log('localStorage auth data cleared');
     } catch (error) {
-      console.error('Failed to clear localStorage auth data:', error);
     }
   }, 100);
-  
-  console.log('[clearAllAuthData] 완료');
 }

@@ -8,7 +8,6 @@ export const useDownloadExcel = (): UseMutationResult<void, Error, number, unkno
       try {
         const response = await memberApi.DOWNLOAD_EXCEL(semesterId);
 
-        console.log('[EXCEL DOWNLOAD] 응답 받음:', {
           status: response.status,
           contentType: response.headers['content-type'],
           dataSize: response.data?.size,
@@ -27,7 +26,6 @@ export const useDownloadExcel = (): UseMutationResult<void, Error, number, unkno
 
         const blob = new Blob([response.data], { type: contentType });
 
-        console.log('[EXCEL DOWNLOAD] Blob 생성 완료:', {
           size: blob.size,
           type: blob.type,
         });
@@ -41,9 +39,7 @@ export const useDownloadExcel = (): UseMutationResult<void, Error, number, unkno
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
 
-        console.log('[EXCEL DOWNLOAD] 다운로드 트리거 완료');
       } catch (error) {
-        console.error('[EXCEL DOWNLOAD] 다운로드 실패:', error);
         throw error;
       }
     },

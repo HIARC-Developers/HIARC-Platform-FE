@@ -17,7 +17,6 @@ export default function useCreateAnnouncement(): UseMutationResult<
   const mutation = useMutation({
     mutationFn: announcementApi.CREATE_ANNOUNCEMENT,
     onSuccess: (newAnnouncement) => {
-      console.log('[HOOK] useCreateAnnouncement 성공:', newAnnouncement);
       queryClient.invalidateQueries({ queryKey: ['announcements'] });
       router.push(`/announcement/${newAnnouncement.announcementId}`);
     },

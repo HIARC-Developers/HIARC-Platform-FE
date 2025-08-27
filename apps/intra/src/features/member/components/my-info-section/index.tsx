@@ -37,7 +37,6 @@ export function MyInfoSection({
         initialValue={introduction || ''}
         onSave={onSave}
         onCancel={() => {
-          console.log('My info dialog cancelled');
         }}
       />
     );

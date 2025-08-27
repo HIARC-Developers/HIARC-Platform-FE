@@ -18,75 +18,18 @@ const apiClient: AxiosInstance = axios.create({
 
 // 중복 에러 처리 방지를 위한 플래그는 이제 store에서 관리
 
-// Pretty Logger (dio style)
+// Pretty Logger (dio style) - Debug logs removed
 const prettyLog = {
   request: (config: InternalAxiosRequestConfig) => {
-    const timestamp = new Date().toLocaleTimeString();
-    console.group(`🚀 [${timestamp}] ${config.method?.toUpperCase()} ${config.url}`);
-
-    if (config.params && Object.keys(config.params).length > 0) {
-      console.log('📝 Query Parameters:');
-      console.table(config.params);
-    }
-
-    if (config.data) {
-      console.log('📦 Request Body:');
-      console.log(JSON.stringify(config.data, null, 2));
-    }
-
-    console.log('⚙️ Headers:');
-    console.table(config.headers);
-    console.groupEnd();
+    // Debug logs removed
   },
 
   response: (response: AxiosResponse) => {
-    const timestamp = new Date().toLocaleTimeString();
-    const configWithTime = response.config as InternalAxiosRequestConfig & {
-      _requestStartTime?: number;
-    };
-    const duration = configWithTime._requestStartTime
-      ? Date.now() - configWithTime._requestStartTime
-      : 0;
-
-    console.group(
-      `✅ [${timestamp}] ${response.status} ${response.config.method?.toUpperCase()} ${response.config.url} (${duration}ms)`
-    );
-
-    if (response.data) {
-      console.log('📥 Response Data:');
-      // Blob 데이터는 JSON.stringify하면 안되므로 체크
-      if (response.config.responseType === 'blob') {
-        console.log('Blob 데이터 (크기:', response.data.size, 'bytes)');
-      } else {
-        console.log(JSON.stringify(response.data, null, 2));
-      }
-    }
-
-    console.log('📊 Response Headers:');
-    console.table(response.headers);
-    console.groupEnd();
+    // Debug logs removed
   },
 
   error: (error: AxiosError) => {
-    const timestamp = new Date().toLocaleTimeString();
-    const config = error.config;
-    const response = error.response;
-
-    console.group(
-      `❌ [${timestamp}] ${response?.status || 'NETWORK_ERROR'} ${config?.method?.toUpperCase()} ${config?.url}`
-    );
-
-    if (response?.data) {
-      console.log('💥 Error Response:');
-      console.log(JSON.stringify(response.data, null, 2));
-    }
-
-    if (error.message) {
-      console.log('📝 Error Message:');
-      console.log(error.message);
-    }
-
-    console.groupEnd();
+    // Debug logs removed
   },
 };
 

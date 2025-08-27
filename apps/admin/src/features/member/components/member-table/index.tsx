@@ -32,7 +32,6 @@ export function MemberTable({
         try {
           await deleteMemberMutation.mutateAsync(student.id!);
         } catch (error) {
-          console.error('탈퇴 처리 실패:', error);
         }
       });
     },

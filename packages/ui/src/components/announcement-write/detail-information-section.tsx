@@ -159,7 +159,6 @@ export default function DetailInformationSection({
 
   // 이미지 관리 함수
   const handleImageChange = (images: File[]): void => {
-    console.log('새 이미지 변경됨:', images);
     setFormData((prev) => ({
       ...prev,
       images: [...images] // 배열 복사로 순서 보장
@@ -167,7 +166,6 @@ export default function DetailInformationSection({
   };
 
   const handleExistingImageChange = (images: ImageSource[]): void => {
-    console.log('기존 이미지 변경됨:', images);
     setFormData((prev) => ({
       ...prev,
       imageSources: [...images] // 배열 복사로 순서 보장
@@ -176,10 +174,8 @@ export default function DetailInformationSection({
 
   // formData 업데이트 헬퍼 함수
   const updateFormData = (updates: Partial<CreateAnnouncementForm>): void => {
-    console.log('updateFormData 호출됨:', updates);
     setFormData((prev) => {
       const newData = { ...prev, ...updates };
-      console.log('업데이트된 formData:', newData);
       return newData;
     });
   };
@@ -195,7 +191,6 @@ export default function DetailInformationSection({
 
   // 폼 제출 함수
   const handleSubmit = (): void => {
-    console.log('폼 제출 시 formData:', formData);
     if (!formData.title.trim() || !formData.content.trim() || !formData.announcementType) {
       DialogUtil.showError('필수 항목을 모두 입력해주세요.');
       return;

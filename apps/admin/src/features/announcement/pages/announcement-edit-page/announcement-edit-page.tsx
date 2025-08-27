@@ -51,7 +51,6 @@ export function AnnouncementEditPage(): React.ReactElement {
           }
         });
       }
-      console.log('기존 이미지 키들 (업로드 안함):', existingImageKeys);
 
       // 2. 새로 추가한 이미지들만 업로드
       const newImageKeys: string[] = [];
@@ -61,18 +60,15 @@ export function AnnouncementEditPage(): React.ReactElement {
         try {
           for (let i = 0; i < data.images.length; i++) {
             const file = data.images[i];
-            console.log(`새 이미지 업로드 시작 ${i + 1}/${data.images.length}:`, file.name);
 
             const imageKey = await new Promise<string>((resolve, reject) => {
               uploadImage(
                 { file },
                 {
                   onSuccess: (imageSource) => {
-                    console.log(`새 이미지 업로드 성공 ${i + 1}:`, imageSource.resourceKey);
                     resolve(imageSource.resourceKey ?? '');
                   },
                   onError: (error) => {
-                    console.error(`새 이미지 업로드 실패 ${i + 1}:`, error);
                     reject(error);
                   },
                 }
@@ -82,10 +78,8 @@ export function AnnouncementEditPage(): React.ReactElement {
             newImageKeys.push(imageKey);
           }
 
-          console.log('새 이미지 업로드 완료:', newImageKeys);
           DialogUtil.hideAllDialogs();
         } catch (error) {
-          console.error('새 이미지 업로드 에러:', error);
           DialogUtil.showError('새 이미지 업로드에 실패했습니다. 다시 시도해주세요.');
           setIsSubmitting(false);
           return;
@@ -97,7 +91,6 @@ export function AnnouncementEditPage(): React.ReactElement {
         ...existingImageKeys,  // 기존 이미지 키들이 앞에
         ...newImageKeys        // 새 이미지 키들이 뒤에
       ];
-      console.log('최종 이미지 키 배열:', finalImageKeys);
 
       // CreateAnnouncementRequest로 변환
       const requestData: CreateAnnouncementRequest = {
@@ -144,7 +137,6 @@ export function AnnouncementEditPage(): React.ReactElement {
         }
       );
     } catch (error) {
-      console.error('공지사항 수정 에러:', error);
       DialogUtil.showError('공지사항 수정에 실패했습니다.');
       setIsSubmitting(false);
     }

@@ -8,16 +8,13 @@ export const sendAdminInput = async (blockName: string, inputValue: string) => {
   }
   let parsedData;
   try {
-    console.log(blockName);
     if (blockName === '새로운 학기 시작하기(막누르지마셈 초 기 화 됨)') {
       parsedData = JSON.parse(inputValue);
-      console.log(parsedData);
       if (!Array.isArray(parsedData)) {
         throw new Error('올바른 JSON 배열이 아닙니다.');
       }
     } else if (blockName === '현재 시즌 중도 마무리') {
       parsedData = inputValue;
-      console.log(parsedData);
     } else {
       parsedData = JSON.parse(inputValue);
       if (typeof parsedData !== 'object' || Array.isArray(parsedData)) {
@@ -26,7 +23,6 @@ export const sendAdminInput = async (blockName: string, inputValue: string) => {
     }
   } catch (error) {
     alert('입력값이 올바른 JSON 형식이 아닙니다.');
-    console.error('JSON 변환 실패:', error);
     return;
   }
 
@@ -46,7 +42,6 @@ export const sendAdminInput = async (blockName: string, inputValue: string) => {
         return '/admin/new-solved';
       default:
         alert('올바르지 않은 BlockName입니다.');
-        console.error(` ${blockName}은 유효하지 않은 BlockName입니다.`);
         return;
     }
   })();
@@ -55,12 +50,9 @@ export const sendAdminInput = async (blockName: string, inputValue: string) => {
 
   try {
     const response = await apiClient.post(apiUrl, parsedData);
-    console.log(`${blockName} 데이터 전송 성공:`, response);
     alert('성공적으로 전송되었습니다!');
     return response;
   } catch (error) {
-    console.log('전송되는 데이터:', parsedData);
-    console.error(` ${blockName} 데이터 전송 실패:`, error);
     alert('데이터 전송에 실패했습니다.');
   }
 };
@@ -85,7 +77,6 @@ export const getAdminHandleStats = async (type: 'hiting' | 'solved-level', handl
     });
     return res.data;
   } catch (err) {
-    console.log(err);
     return null;
   }
 };

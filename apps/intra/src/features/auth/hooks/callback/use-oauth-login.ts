@@ -23,7 +23,6 @@ export default function useOAuthLogin(): UseOAuthLoginReturn {
           throw new Error(`지원하지 않는 OAuth 제공자입니다: ${provider}`);
       }
     } catch (error) {
-      console.error(`${provider} 로그인 실패:`, error);
       setIsLoading(false);
     }
   };

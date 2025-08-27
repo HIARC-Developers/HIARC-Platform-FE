@@ -186,7 +186,6 @@ export function EditStudyForm({ studyId }: EditStudyFormProps): React.ReactEleme
         router.push(`/study/${studyId}`);
       });
     } catch (error) {
-      console.error('스터디 수정 실패:', error);
       DialogUtil.showError('스터디 수정에 실패했습니다.');
     }
   };

@@ -136,7 +136,6 @@ export function SideBar({
                 value={formData.lectureRound?.toString() || ''}
                 onChange={(value: string) => {
                   const lectureRound = value ? Number(value) : undefined;
-                  console.log('회차 선택됨:', lectureRound);
                   onFormDataChange({ lectureRound });
                 }}
               />

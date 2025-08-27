@@ -6,7 +6,6 @@ import { AnnouncementQueryParams } from '../../types/request/announcement-query-
 export default function useAnnouncements(
   params: AnnouncementQueryParams = {}
 ): UseQueryResult<PageableModel<AnnouncementSummary>, Error> {
-  console.log('[HOOK] useAnnouncements 호출:', params);
 
   const query = useQuery({
     queryKey: ['announcements', params],

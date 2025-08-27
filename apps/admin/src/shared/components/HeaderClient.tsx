@@ -19,7 +19,6 @@ export function HeaderClient({ isAuthenticated }: HeaderClientProps): React.Reac
   const router = useRouter();
   const logoutMutation = useLogout();
 
-  console.log('AdminHeaderClient - isAuthenticated:', isAuthenticated);
 
   const pathname = usePathname();
   const tabItems = [

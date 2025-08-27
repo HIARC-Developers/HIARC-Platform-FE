@@ -46,18 +46,15 @@ export function AnnouncementWritePage(): React.ReactElement {
           // 이미지를 순차적으로 업로드
           for (let i = 0; i < data.images.length; i++) {
             const file = data.images[i];
-            console.log(`이미지 업로드 시작 ${i + 1}/${data.images.length}:`, file.name);
             
             const imageKey = await new Promise<string>((resolve, reject) => {
               uploadImage(
                 { file },
                 {
                   onSuccess: (imageSource) => {
-                    console.log(`이미지 업로드 성공 ${i + 1}:`, imageSource.resourceKey);
                     resolve(imageSource.resourceKey ?? '');
                   },
                   onError: (error) => {
-                    console.error(`이미지 업로드 실패 ${i + 1}:`, error);
                     reject(error);
                   },
                 }
@@ -67,10 +64,8 @@ export function AnnouncementWritePage(): React.ReactElement {
             imageKeys.push(imageKey);
           }
           
-          console.log('모든 이미지 업로드 완료:', imageKeys);
           DialogUtil.hideAllDialogs();
         } catch (error) {
-          console.error('이미지 업로드 에러:', error);
           DialogUtil.showError('이미지 업로드에 실패했습니다. 다시 시도해주세요.');
           setIsSubmitting(false);
           return;

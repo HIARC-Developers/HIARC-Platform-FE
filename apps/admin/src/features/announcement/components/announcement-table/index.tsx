@@ -42,7 +42,6 @@ export function AnnouncementTable({
   const handleEdit = useCallback(
     (announcement: AnnouncementSummary): void => {
       if (!announcement.announcementId) {
-        console.error('공지사항 수정 실패: announcementId가 없습니다.');
         return;
       }
 

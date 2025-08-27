@@ -57,7 +57,6 @@ export const AdminLoginPage = () => {
       navigate('/admin');
     } catch (error) {
       alert('로그인 실패');
-      console.log('오류내용: ', error);
     }
   };
 

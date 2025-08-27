@@ -29,7 +29,6 @@ export function useCreateAssignment(): UseMutationResult<
       DialogUtil.showSuccess('과제가 성공적으로 등록되었습니다.');
     },
     onError: (error) => {
-      console.error('[HOOK] useCreateAssignment 에러:', error);
     },
   });
 

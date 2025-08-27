@@ -37,7 +37,6 @@ export function RecruitManageDialog({
       }
       DialogUtil.hideAllDialogs();
     } catch (error) {
-      console.error('저장 실패:', error);
       throw error;
     }
   };

@@ -47,7 +47,6 @@ export function RecruitStartDialog({
         alert('모집 시작일과 모집 종료일을 입력해주세요');
       }
     } catch (error) {
-      console.error('저장 실패:', error);
       throw error;
     }
   };

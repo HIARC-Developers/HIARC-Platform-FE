@@ -99,11 +99,9 @@ export const BrowserUtils = {
   },
 
   /**
-   * 사용자 에이전트 정보를 콘솔에 출력 (디버깅용)
+   * 사용자 에이전트 정보를 콘솔에 출력 (디버깅용) - Debug logs removed
    */
   logUserAgent(): void {
-    console.log('User Agent:', navigator.userAgent);
-    console.log('Vendor:', navigator.vendor);
-    console.log('Is In-App Browser:', this.isInAppBrowser());
+    // Debug logs removed
   }
 };

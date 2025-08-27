@@ -25,7 +25,6 @@ export function useUpdateRecruitment(): UseMutationResult<
       DialogUtil.showSuccess('학회원 모집 정보가 성공적으로 수정되었습니다.');
     },
     onError: (error) => {
-      console.error('[HOOK] useUpdateRecruitment 에러:', error);
     },
   });
 

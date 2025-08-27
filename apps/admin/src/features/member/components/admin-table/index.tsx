@@ -33,7 +33,6 @@ export function AdminTable({ adminData, className }: AdminTableSectionProps): Re
               semesterId: Number(selectedSemesterId),
             });
           } catch (error) {
-            console.error('삭제 실패:', error);
           }
         }
       );

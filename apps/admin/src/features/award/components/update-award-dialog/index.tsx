@@ -51,7 +51,6 @@ export function EditCompetitionDialog({
 
       DialogUtil.hideAllDialogs();
     } catch (error) {
-      console.error('💥 [EDIT AWARD] 수정 실패:', error);
       throw error;
     }
   };

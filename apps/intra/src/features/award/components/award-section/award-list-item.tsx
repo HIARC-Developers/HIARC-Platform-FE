@@ -28,7 +28,6 @@ export function AwardListItem({ award }: AwardListItemProps): React.ReactElement
         award={award}
         onSave={() => {}}
         onCancel={() => {
-          console.log('대회 수정 취소');
         }}
       />
     );

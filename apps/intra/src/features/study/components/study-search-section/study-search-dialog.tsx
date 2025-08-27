@@ -75,7 +75,6 @@ export function StudySearchDialog({
       }
       DialogUtil.hideAllDialogs();
     } catch (error) {
-      console.error('검색 실패:', error);
       throw error;
     }
   };
