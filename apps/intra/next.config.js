@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@hiarc-platform/ui', '@hiarc-platform/util'],
+  transpilePackages: ['@hiarc-platform/ui', '@hiarc-platform/util', '@hiarc-platform/shared'],
   async headers() {
     return [
       {
