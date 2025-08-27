@@ -7,6 +7,11 @@ export const BrowserUtils = {
    * 현재 브라우저가 인앱 브라우저인지 감지합니다
    */
   isInAppBrowser(): boolean {
+    // 서버 사이드에서는 false 반환
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return false;
+    }
+    
     const userAgent = navigator.userAgent || navigator.vendor;
     
     // iOS 인앱 브라우저들
@@ -49,6 +54,11 @@ export const BrowserUtils = {
    * 현재 URL을 외부 브라우저로 열도록 안내합니다
    */
   openInExternalBrowser(url?: string): void {
+    // 서버 사이드에서는 실행하지 않음
+    if (typeof window === 'undefined') {
+      return;
+    }
+    
     const targetUrl = url || window.location.href;
     
     if (this.isInAppBrowser()) {
@@ -59,7 +69,7 @@ export const BrowserUtils = {
       alert(message);
       
       // iOS Safari로 열기 시도 (iOS에서만 작동)
-      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      if (typeof navigator !== 'undefined' && /iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         window.location.href = `x-web-search://?${targetUrl}`;
       }
       
@@ -102,6 +112,11 @@ export const BrowserUtils = {
    * 사용자 에이전트 정보를 콘솔에 출력 (디버깅용)
    */
   logUserAgent(): void {
+    if (typeof navigator === 'undefined') {
+      console.log('Navigator not available (server-side)');
+      return;
+    }
+    
     console.log('User Agent:', navigator.userAgent);
     console.log('Vendor:', navigator.vendor);
     console.log('Is In-App Browser:', this.isInAppBrowser());

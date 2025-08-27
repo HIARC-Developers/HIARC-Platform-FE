@@ -18,6 +18,8 @@ const apiClient: AxiosInstance = axios.create({
 // Pretty Logger (dio style)
 const prettyLog = {
   request: (config: InternalAxiosRequestConfig & { _requestStartTime?: number }) => {
+    if (process.env.NODE_ENV === 'production') return;
+    
     const timestamp = new Date().toLocaleTimeString();
     console.group(`🚀 [${timestamp}] ${config.method?.toUpperCase()} ${config.url}`);
 
@@ -37,6 +39,8 @@ const prettyLog = {
   },
 
   response: (response: AxiosResponse & { config: { _requestStartTime?: number } }) => {
+    if (process.env.NODE_ENV === 'production') return;
+    
     const timestamp = new Date().toLocaleTimeString();
     const duration = response.config._requestStartTime
       ? Date.now() - response.config._requestStartTime
@@ -57,6 +61,8 @@ const prettyLog = {
   },
 
   error: (error: AxiosError) => {
+    if (process.env.NODE_ENV === 'production') return;
+    
     const timestamp = new Date().toLocaleTimeString();
     const config = error.config;
     const response = error.response;
@@ -83,7 +89,9 @@ const prettyLog = {
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   (config as InternalAxiosRequestConfig & { _requestStartTime?: number })._requestStartTime =
     Date.now();
-  prettyLog.request(config as InternalAxiosRequestConfig & { _requestStartTime?: number });
+  if (process.env.NODE_ENV !== 'production') {
+    prettyLog.request(config as InternalAxiosRequestConfig & { _requestStartTime?: number });
+  }
   return config;
 });
 
@@ -94,14 +102,16 @@ apiClient.interceptors.response.use(
     return response;
   },
   async (error: AxiosError) => {
-    prettyLog.error(error);
+    if (process.env.NODE_ENV !== 'production') {
+      prettyLog.error(error);
+    }
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
+    const { clearAuth } = useAuthStore.getState();
 
     // 401 에러 처리 (인증 실패)
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-
-      const { clearAuth } = useAuthStore.getState();
 
       // 인증 실패 시 모든 인증 정보 삭제
       clearAuth();

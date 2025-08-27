@@ -1,0 +1,7 @@
+{
+  "buildCommand": "cd ../.. && pnpm turbo run build --filter=intra",
+  "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
+  "framework": "nextjs",
+  "rootDirectory": ".",
+  "ignoreCommand": "git diff --quiet ../../pnpm-lock.yaml"
+}

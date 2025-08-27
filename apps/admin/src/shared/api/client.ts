@@ -22,6 +22,8 @@ const apiClient: AxiosInstance = axios.create({
 // Pretty Logger (dio style)
 const prettyLog = {
   request: (config: InternalAxiosRequestConfig) => {
+    if (process.env.NODE_ENV === 'production') return;
+    
     const timestamp = new Date().toLocaleTimeString();
     console.group(`🚀 [${timestamp}] ${config.method?.toUpperCase()} ${config.url}`);
 
@@ -41,6 +43,8 @@ const prettyLog = {
   },
 
   response: (response: AxiosResponse) => {
+    if (process.env.NODE_ENV === 'production') return;
+    
     const timestamp = new Date().toLocaleTimeString();
     const configWithTime = response.config as InternalAxiosRequestConfig & {
       _requestStartTime?: number;
@@ -69,6 +73,8 @@ const prettyLog = {
   },
 
   error: (error: AxiosError) => {
+    if (process.env.NODE_ENV === 'production') return;
+    
     const timestamp = new Date().toLocaleTimeString();
     const config = error.config;
     const response = error.response;
@@ -95,7 +101,9 @@ const prettyLog = {
 apiClient.interceptors.request.use((config) => {
   const configWithTime = config as InternalAxiosRequestConfig & { _requestStartTime?: number };
   configWithTime._requestStartTime = Date.now();
-  prettyLog.request(config);
+  if (process.env.NODE_ENV !== 'production') {
+    prettyLog.request(config);
+  }
   return config;
 });
 
@@ -103,11 +111,15 @@ apiClient.interceptors.request.use((config) => {
 // 응답 인터셉터
 apiClient.interceptors.response.use(
   (response) => {
-    prettyLog.response(response);
+    if (process.env.NODE_ENV !== 'production') {
+      prettyLog.response(response);
+    }
     return response;
   },
   async (error) => {
-    prettyLog.error(error);
+    if (process.env.NODE_ENV !== 'production') {
+      prettyLog.error(error);
+    }
     const originalRequest = error.config;
 
     const { clearAuth } = useAuthStore.getState();
