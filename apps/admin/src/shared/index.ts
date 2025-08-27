@@ -24,3 +24,4 @@ export * from './types/pageable-model';
 
 // Utils
 export { DialogUtil } from '@hiarc-platform/ui';
+export { BrowserUtils } from './utils/browser-utils';

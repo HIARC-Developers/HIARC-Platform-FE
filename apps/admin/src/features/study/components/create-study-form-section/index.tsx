@@ -2,7 +2,7 @@
 import { Label, LabeledInput, LabeledSelectButton, DialogUtil } from '@hiarc-platform/ui';
 import { Button } from '@hiarc-platform/ui';
 import { LabeledSelector } from '@hiarc-platform/ui';
-import { LabeledMultiSelect, LabeledTimePicker, InformaionSection } from '@hiarc-platform/ui';
+import { LabeledMultiSelect, LabeledTimePicker, InformaionSection } from '@hiarc-platform/ui/src/components/study/create-study-form';
 import { LabeledTextarea } from '@hiarc-platform/ui';
 import { LabeledCalanderInput } from '@hiarc-platform/ui';
 import { useState } from 'react';

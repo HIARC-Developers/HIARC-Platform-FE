@@ -1,0 +1,13 @@
+# Vercel ignore file
+node_modules
+.next
+.env*.local
+*.log
+.DS_Store
+
+# Keep important monorepo files
+!packages/
+!apps/
+!pnpm-workspace.yaml
+!pnpm-lock.yaml
+!turbo.json

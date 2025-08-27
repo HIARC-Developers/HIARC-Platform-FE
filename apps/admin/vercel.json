@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd ../.. && pnpm install --frozen-lockfile && pnpm turbo build --filter=admin",
+  "installCommand": "echo 'Skipping install, will be done in buildCommand'",
+  "framework": "nextjs"
+}
