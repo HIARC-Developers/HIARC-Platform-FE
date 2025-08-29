@@ -123,7 +123,7 @@ export function RecruitManageSection(): React.ReactElement {
         </div>
         <MemberRecruitTable
           pageableModel={recruitmentData}
-          onPageChange={setPage}
+          onPageChange={(pageNumber) => setPage(pageNumber - 1)}
           showApprovalButton={isApplicationStatusEditable}
         />
       </div>
