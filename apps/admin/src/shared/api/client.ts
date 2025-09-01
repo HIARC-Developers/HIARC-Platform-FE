@@ -19,7 +19,7 @@ const apiClient: AxiosInstance = axios.create({
 
 // 중복 에러 처리 방지를 위한 플래그는 이제 store에서 관리
 
-// Pretty Logger (dio style)
+// Pretty Logger (dio style) - Only in development
 const prettyLog = {
   request: (config: InternalAxiosRequestConfig) => {
     if (process.env.NODE_ENV === 'production') return;

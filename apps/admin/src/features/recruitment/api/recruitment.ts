@@ -54,7 +54,6 @@ export const recruitmentApi = {
       const response = await apiClient(`/admin/recruitment/${semesterId}`);
       return Recruitment.fromJson(response.data);
     } catch (error) {
-      console.error('[RECRUITMENT API] GET_RECRUITMENT 에러:', error);
       throw error;
     }
   },
@@ -69,7 +68,6 @@ export const recruitmentApi = {
     try {
       await apiClient.patch(`/admin/recruitment/${semesterId}`, data);
     } catch (error) {
-      console.error('[RECRUITMENT API] UPDATE_RECRUITMENT 에러:', error);
       throw error;
     }
   },
@@ -86,7 +84,6 @@ export const recruitmentApi = {
         responseType: 'blob',
       });
     } catch (error) {
-      console.error('[RECRUITMENT API] DOWNLOAD_APPLICANT_EXCEL 에러:', error);
       throw error;
     }
   },

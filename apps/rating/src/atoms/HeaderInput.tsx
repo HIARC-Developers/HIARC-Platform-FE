@@ -42,7 +42,6 @@ const HeaderInput = () => {
   const handleSearch = () => {
     if (inputValue.trim() !== '') {
       setHandle(inputValue);
-      console.log('🔍 검색 실행:', inputValue);
       navigate(`/search?handle=${inputValue}`);
     }
   };

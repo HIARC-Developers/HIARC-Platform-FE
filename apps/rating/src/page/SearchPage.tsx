@@ -68,7 +68,6 @@ const SearchPage = () => {
       }
     } catch (err) {
       setError(' 데이터 불러오는 중 오류 발생.');
-      console.error('데이터 불러오는 중 오류 발생:', err);
     } finally {
       setLoading(false);
     }

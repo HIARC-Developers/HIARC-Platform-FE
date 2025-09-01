@@ -15,7 +15,7 @@ const apiClient: AxiosInstance = axios.create({
   },
 });
 
-// Pretty Logger (dio style)
+// Pretty Logger (dio style) - Only in development
 const prettyLog = {
   request: (config: InternalAxiosRequestConfig & { _requestStartTime?: number }) => {
     if (process.env.NODE_ENV === 'production') return;

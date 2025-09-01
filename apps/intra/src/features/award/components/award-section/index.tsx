@@ -21,7 +21,6 @@ export function AwardSection({
     });
   };
 
-  console.log('Award List:', awardList);
 
   return (
     <div className={cn('flex w-full flex-col', className)}>

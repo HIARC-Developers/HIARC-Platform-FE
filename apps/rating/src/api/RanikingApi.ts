@@ -18,7 +18,6 @@ export const fetchRankingData = async (selected: number) => {
       data: { streakRatio: number; rankingList: RankingItem[] };
     }>(`/rating/${selected}`);
 
-    console.log(' Success: 랭킹 데이터 받아옴', response.data);
 
     if (!response.data.data) {
       console.warn(' 데이터 구조가 예상과 다릅니다. 빈 배열을 반환합니다.');
@@ -34,7 +33,6 @@ export const fetchRankingData = async (selected: number) => {
       total: item.totalHiting,
     }));
   } catch (err) {
-    console.error(' API 요청 실패:', err);
     return [];
   }
 };
@@ -56,7 +54,6 @@ export const fetchGraphData = async (selected: number) => {
 
     return response.data.data.streakRatio;
   } catch (err) {
-    console.error('API 요청 실패', err);
     return 100;
   }
 };

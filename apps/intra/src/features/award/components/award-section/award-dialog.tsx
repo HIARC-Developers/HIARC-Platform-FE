@@ -61,7 +61,6 @@ export function AwardDialog({ onSave, onCancel }: AwardDialogProps): React.React
       DialogUtil.hideAllDialogs();
       onSave?.();
     } catch (error) {
-      console.error('💥 [CREATE AWARD] 생성 실패:', error);
       throw error;
     }
   };

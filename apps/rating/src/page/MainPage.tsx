@@ -65,9 +65,7 @@ const MainPage = () => {
       try {
         const data = await fetchHitingData();
         setHitingData(data);
-        console.log(hitingData);
       } catch (err) {
-        console.error(err);
       } finally {
         setLoading(false);
       }

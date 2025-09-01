@@ -19,7 +19,6 @@ export const useAwardListColumns = (): Array<ColumnDef<Award>> => {
         await deleteAwardMutation.mutateAsync(award.awardId!);
         DialogUtil.showSuccess('수상 기록이 성공적으로 삭제되었습니다.');
       } catch (error) {
-        console.error('수상 기록 삭제 실패:', error);
         DialogUtil.showError('수상 기록 삭제에 실패했습니다.');
       }
     });

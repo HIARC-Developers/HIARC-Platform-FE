@@ -16,7 +16,6 @@ export default function useOAuthCallback(): { isProcessing: boolean } {
         const email = searchParams.get('email');
 
         if (!needSignup) {
-          console.error('needSignup 파라미터가 없습니다.');
           router.push('/login');
           return;
         }
@@ -43,13 +42,11 @@ export default function useOAuthCallback(): { isProcessing: boolean } {
             login(getMeResponse);
             router.push('/');
           } catch (error) {
-            console.error('유저 정보 패칭 실패:', error);
             clearAuth();
             router.push('/login');
           }
         }
       } catch (error) {
-        console.error('OAuth 콜백 처리 실패:', error);
         clearAuth();
         router.push('/login');
       } finally {

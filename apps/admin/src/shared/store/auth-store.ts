@@ -74,7 +74,6 @@ export const useAuthStore = create<AuthState>()(
           try {
             state.user = MyInfo.fromJson(state.user as unknown);
           } catch (error) {
-            console.error('Failed to rehydrate user from localStorage:', error);
             state.user = null;
             state.isAuthenticated = false;
           }

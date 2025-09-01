@@ -49,7 +49,6 @@ export const AdminInputBox = ({ blockName }: { blockName: string }) => {
   };
   const onClick = async () => {
     try {
-      console.log(handle);
       const response = await getAdminHandleStats(
         blockNameToCode[blockName] as 'solved-level' | 'hiting',
         handle
@@ -64,7 +63,6 @@ export const AdminInputBox = ({ blockName }: { blockName: string }) => {
     } catch (err) {
       setModalContent('error 개발팀 문의');
       setIsModalOpen(true);
-      console.log(err);
     }
   };
   return (

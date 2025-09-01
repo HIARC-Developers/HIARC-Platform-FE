@@ -16,7 +16,6 @@ apiClient.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
-  console.log(`Request to ${config.url}`, config);
   return config;
 });
 

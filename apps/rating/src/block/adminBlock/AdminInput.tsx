@@ -77,7 +77,6 @@ const AdminInput = ({ BlockName }: { BlockName: string }) => {
       }
     } catch (error) {
       alert('전송 실패');
-      console.log('실패', error);
     } finally {
       setLoading(false);
     }

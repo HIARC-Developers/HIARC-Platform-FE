@@ -98,7 +98,6 @@ export function AddAwardDialog({
       }
       DialogUtil.hideAllDialogs();
     } catch (error) {
-      console.error('저장 실패:', error);
       DialogUtil.showError('대회 정보 추가에 실패했습니다.');
     }
   };

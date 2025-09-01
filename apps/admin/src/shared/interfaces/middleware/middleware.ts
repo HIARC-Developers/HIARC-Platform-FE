@@ -33,7 +33,6 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
   headersMiddleware(response);
 
   // 7. 응답 시간 로깅
-  console.log(`Response Time: ${Date.now() - start}ms`);
   return response;
 }
 

@@ -81,7 +81,6 @@ const DivPage = () => {
     const fetchData = async () => {
       const graphData = await fetchGraphData(selected);
       if (isNaN(graphData)) {
-        console.log('경고: NaN 값이 반환되었습니다.', graphData);
         setStreakRatio(0);
       } else {
         setStreakRatio(graphData);

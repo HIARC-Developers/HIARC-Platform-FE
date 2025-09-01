@@ -308,8 +308,6 @@ export class DialogUtil {
     defaultMessage = '오류가 발생했습니다.',
     onConfirm?: () => void
   ): string {
-    console.error('Error occurred:', error);
-
     // AxiosError 타입 정의
     interface AxiosError {
       response?: {
@@ -327,7 +325,6 @@ export class DialogUtil {
     
     // 401 에러는 API 인터셉터에서 처리되므로 여기서 무시
     if (status === 401) {
-      console.log('🚨 401 에러는 API 인터셉터에서 처리됨 - showServerError 무시');
       return ''; // 빈 ID 반환하여 다이얼로그 표시하지 않음
     }
     

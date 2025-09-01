@@ -11,7 +11,6 @@ export function useLoginPageState() {
   useEffect(() => {
     if (user) {
       logout();
-      console.log('이미 로그인된 사용자입니다:', user);
     }
   }, [user, router, logout]);
 

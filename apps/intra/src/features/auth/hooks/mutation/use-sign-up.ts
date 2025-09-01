@@ -23,7 +23,6 @@ export default function useSignUp(): UseMutationResult<
         const getMeResponse = await authApi.GET_ME();
         login(getMeResponse);
       } catch (error) {
-        console.error('유저 정보 패칭 실패:', error);
       }
 
       try {
@@ -54,7 +53,6 @@ export default function useSignUp(): UseMutationResult<
           })
         );
       } catch (error) {
-        console.error('Failed to fetch recruit application:', error);
         // API 호출 실패 시 기본 메시지로 첫 번째 다이얼로그만 표시
         DialogUtil.showComponent(
           React.createElement(GreetingDialog, {

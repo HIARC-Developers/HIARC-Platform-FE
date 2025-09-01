@@ -6,7 +6,6 @@ import { ApprovalButton } from './approval-button';
 export const getStudentApplyListColumns = (
   showApprovalButton: boolean
 ): Array<ColumnDef<StudentApply>> => {
-  console.log('getStudentApplyListColumns called with showApprovalButton:', showApprovalButton);
 
   const baseColumns: Array<ColumnDef<StudentApply>> = [
     {
@@ -239,12 +238,6 @@ export const getStudentApplyListColumns = (
   };
 
   const result = showApprovalButton ? [...baseColumns, approvalColumn] : baseColumns;
-
-  console.log('Final columns count:', result.length);
-  console.log(
-    'Columns:',
-    result.map((col) => col.id)
-  );
 
   return result;
 };

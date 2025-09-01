@@ -10,7 +10,9 @@ export const CurrentSemester = {
     const data = (json || {}) as Record<string, unknown>;
     return {
       currentSemester: Semester.fromJson(data.currentSemester),
-      recruitingSemester: data.recruitingSemester ? Semester.fromJson(data.recruitingSemester) : undefined,
+      recruitingSemester: data.recruitingSemester
+        ? Semester.fromJson(data.recruitingSemester)
+        : undefined,
     };
   },
 };

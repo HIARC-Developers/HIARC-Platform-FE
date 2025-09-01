@@ -57,7 +57,6 @@ export function EditAdminDialog({
 
       DialogUtil.hideAllDialogs();
     } catch (error) {
-      console.error('저장 실패:', error);
     }
   };
 

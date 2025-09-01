@@ -65,7 +65,6 @@ export function EditAwardDialog({
         awardDetail: recordType === 'participation' ? '참여' : formData.awardDetail,
       };
 
-      console.log('💾 [EDIT AWARD] 수정 시작:', updateData);
 
       await updateAwardMutation.mutateAsync({
         awardId: award.awardId ?? 0,
@@ -75,7 +74,6 @@ export function EditAwardDialog({
       DialogUtil.hideAllDialogs();
       onSave?.();
     } catch (error) {
-      console.error('💥 [EDIT AWARD] 수정 실패:', error);
       throw error;
     }
   };

@@ -66,7 +66,6 @@ export const studyMemberApi = {
       const response = await apiClient.get(`/studies/${studyId}/me`);
       return MyStudyInfo.fromJson(response.data);
     } catch (error) {
-      console.error('[STUDY API] GET_MY_STUDY_INFO 에러:', error);
       throw error;
     }
   },

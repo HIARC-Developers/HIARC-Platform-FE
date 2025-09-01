@@ -48,7 +48,6 @@ export function AddAdminDialog({
       await validateAdminHandleMutation.mutateAsync(bojHandle.trim());
       setIsValidated(true);
     } catch (error) {
-      console.error('핸들명 인증 실패:', error);
       setIsValidated(false);
     }
   };
@@ -80,7 +79,6 @@ export function AddAdminDialog({
         await onSave();
       }
     } catch (error) {
-      console.error('저장 실패:', error);
     }
   };
 

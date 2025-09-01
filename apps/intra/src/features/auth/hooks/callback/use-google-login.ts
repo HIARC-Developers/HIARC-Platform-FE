@@ -16,7 +16,6 @@ export default function useGoogleLogin(): { googleLogin(): void; isLoading: bool
       // 직접 리다이렉트이므로 페이지가 이동되어 setIsLoading(false)가 실행되지 않음
       authApi.GOOGLE_LOGIN();
     } catch (error) {
-      console.error('Google 로그인 실패:', error);
       setIsLoading(false);
     }
   };

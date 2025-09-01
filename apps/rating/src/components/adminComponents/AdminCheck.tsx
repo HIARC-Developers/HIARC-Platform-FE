@@ -34,7 +34,6 @@ export const AdminCheck = ({ name }: { name: 'recent-season' | 'recent-event' | 
       setModalContent(JSON.stringify(response.data.data, null, 2));
       setIsModalOpen(true);
     } catch (error) {
-      console.error('오류...', error);
       setModalContent('오류 개발팀 문의' + String(error));
       setIsModalOpen(true);
     }

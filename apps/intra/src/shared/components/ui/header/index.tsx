@@ -13,8 +13,6 @@ export default function Header({ isAuthenticated }: HeaderProps): React.ReactEle
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const { user } = useAuthStore();
 
-  console.log('[Header] isAuthenticated:', isAuthenticated);
-  console.log('[Header] user:', user);
 
   return (
     <header className="flex w-full items-center justify-between border-b border-gray-200">

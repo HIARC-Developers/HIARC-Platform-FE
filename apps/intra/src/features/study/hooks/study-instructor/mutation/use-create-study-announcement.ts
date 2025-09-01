@@ -28,7 +28,6 @@ export default function useCreateStudyAnnouncement(): UseMutationResult<
       }
     },
     onSuccess: (newAnnouncement, variables) => {
-      console.log('[HOOK] useCreateStudyAnnouncement 성공:', newAnnouncement);
 
       if ('studyId' in variables && 'announcementData' in variables) {
         queryClient.invalidateQueries({ queryKey: ['studies', { studyId: variables.studyId }] });
@@ -36,7 +35,6 @@ export default function useCreateStudyAnnouncement(): UseMutationResult<
       queryClient.invalidateQueries({ queryKey: ['announcements'] });
     },
     onError: (error) => {
-      console.error('[HOOK] useCreateStudyAnnouncement 에러:', error);
     },
   });
 

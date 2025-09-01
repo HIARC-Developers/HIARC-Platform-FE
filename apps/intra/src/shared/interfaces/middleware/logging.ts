@@ -12,6 +12,5 @@ export function loggingMiddleware(req: NextRequest): number {
   const start = Date.now();
   const ipHeader = req.headers.get('x-forwarded-for') || '';
   const ip = ipHeader.split(',')[0].trim() || 'unknown';
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.nextUrl.pathname} - IP: ${ip}`);
   return start;
 }

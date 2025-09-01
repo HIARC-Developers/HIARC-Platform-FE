@@ -48,7 +48,6 @@ export function LectureList({
                         onSuccess();
                       },
                       onError: (error) => {
-                        console.error('출석 코드 생성 실패:', error);
                         // 에러 발생 시 onSuccess를 호출하지 않음
                       },
                     }
@@ -86,7 +85,6 @@ export function LectureList({
           }}
           onEditClick={() => {
             if (!lecture.announcementId) {
-              console.error('강의 수정 실패: announcementId가 없습니다.');
               return;
             }
 
@@ -94,7 +92,6 @@ export function LectureList({
           }}
           onDeleteClick={() => {
             if (!lecture.announcementId) {
-              console.error('강의 삭제 실패: announcementId가 없습니다.');
               return;
             }
 

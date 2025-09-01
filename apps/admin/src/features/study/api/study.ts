@@ -27,7 +27,6 @@ export const studyApi = {
       });
       return PageableModel.fromJson(response.data, StudySummary);
     } catch (error) {
-      console.error('[STUDY API] GET_ALL_STUDIES 에러:', error);
       throw error;
     }
   },
@@ -42,7 +41,6 @@ export const studyApi = {
       const response = await apiClient.get<Study>(`/studies/${studyId}`);
       return Study.fromJson(response.data);
     } catch (error) {
-      console.error('[STUDY API] GET_STUDY_DETAIL 에러:', error);
       throw error;
     }
   },
@@ -57,7 +55,6 @@ export const studyApi = {
       const response = await apiClient.get<Study>(`/admin/studies/${studyId}`);
       return StudyInitialForm.fromJson(response.data);
     } catch (error) {
-      console.error('[STUDY API] GET_STUDY_INITIAL_FORM 에러:', error);
       throw error;
     }
   },
@@ -72,7 +69,6 @@ export const studyApi = {
       const response = await apiClient.post<Study>('/admin/studies', studyData);
       return Study.fromJson(response.data);
     } catch (error) {
-      console.error('[STUDY API] CREATE_STUDY 에러:', error);
       throw error;
     }
   },
@@ -111,7 +107,6 @@ export const studyApi = {
       );
       return PageableModel.fromJson(response.data, AnnouncementSummary);
     } catch (error) {
-      console.error('[STUDY API] GET_STUDY_ANNOUNCEMENT_LIST 에러:', error);
       throw error;
     }
   },
@@ -126,7 +121,6 @@ export const studyApi = {
       const response = await apiClient.get(`/studies/${studyId}/lecture`);
       return response.data.map((lecture: unknown) => Lecture.fromJson(lecture));
     } catch (error) {
-      console.error('[STUDY API] GET_LECTURES_BY_STUDY 에러:', error);
       throw error;
     }
   },
@@ -141,7 +135,6 @@ export const studyApi = {
       const response = await apiClient.get(`/studies/${studyId}/instructor/status`);
       return response.data.map((member: unknown) => StudyMember.fromJson(member));
     } catch (error) {
-      console.error('[STUDY API] GET_STUDY_MEMBERS 에러:', error);
       throw error;
     }
   },
@@ -161,7 +154,6 @@ export const studyApi = {
     try {
       await apiClient.post(`/studies/${studyId}/instructor/lecture/${lectureId}/assignment`, data);
     } catch (error) {
-      console.error('[STUDY API] CREATE_ASSIGNMENT 에러:', error);
       throw error;
     }
   },
@@ -177,7 +169,6 @@ export const studyApi = {
       const response = await apiClient.get(`/studies/${studyId}/lecture/${lectureId}/assignment`);
       return Assignment.fromJson(response.data);
     } catch (error) {
-      console.error('[STUDY API] GET_ASSIGNMENT 에러:', error);
       throw error;
     }
   },
@@ -199,7 +190,6 @@ export const studyApi = {
         code,
       });
     } catch (error) {
-      console.error('[STUDY API] CREATE_ATTENDANCE_CODE 에러:', error);
       throw error;
     }
   },
@@ -217,7 +207,6 @@ export const studyApi = {
       );
       return response.data.code;
     } catch (error) {
-      console.error('[STUDY API] GET_ATTENDANCE_CODE 에러:', error);
       throw error;
     }
   },
@@ -232,7 +221,6 @@ export const studyApi = {
     try {
       await apiClient.delete(`/studies/${studyId}/instructor/announcements/${announcementId}`);
     } catch (error) {
-      console.error('[STUDY API] DELETE_LECTURE 에러:', error);
       throw error;
     }
   },

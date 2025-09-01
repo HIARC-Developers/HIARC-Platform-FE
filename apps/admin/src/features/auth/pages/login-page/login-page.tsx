@@ -16,7 +16,6 @@ export function LoginPage(): React.ReactElement {
   useEffect(() => {
     if (user) {
       logout();
-      console.log('이미 로그인된 사용자입니다:', user);
       // router.push('/');
     }
   }, [user, router, logout]);

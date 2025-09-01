@@ -38,7 +38,6 @@ export const useSemesterStore = create<SemesterState>((set, get) => ({
         isLoading: false,
       });
     } catch (error) {
-      console.error('Failed to fetch semesters:', error);
       set({
         error: error instanceof Error ? error.message : 'Failed to fetch semesters',
         isLoading: false,
@@ -92,7 +91,6 @@ export const useSemesterStore = create<SemesterState>((set, get) => ({
         error: null,
       });
     } catch (error) {
-      console.error('Failed to initialize semester store:', error);
       set({
         error: error instanceof Error ? error.message : 'Failed to initialize semester',
         isLoading: false,
@@ -133,7 +131,6 @@ export const useSemesterStore = create<SemesterState>((set, get) => ({
         set({ selectedSemesterId: semesterOptions[0].value });
       }
     } catch (error) {
-      console.error('Failed to refresh semesters:', error);
     }
   },
 }));

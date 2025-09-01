@@ -62,7 +62,6 @@ export function AnnouncementSearchSection({
           onSearch?.(params);
         }}
         onCancel={() => {
-          console.log('Search cancelled');
         }}
         initialValues={{
           announcementType,

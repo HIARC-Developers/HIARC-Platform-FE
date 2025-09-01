@@ -60,16 +60,10 @@ export const announcementApi = {
     id: number,
     announcementData: CreateAnnouncementRequest
   ): Promise<Announcement> => {
-    console.log('[ADMIN ANNOUNCEMENT API] UPDATE_ADMIN_ANNOUNCEMENT 요청:', {
-      id,
-      data: announcementData,
-    });
     try {
       const response = await apiClient.patch(`/admin/announcements/${id}`, announcementData);
-      console.log('[ADMIN ANNOUNCEMENT API] UPDATE_ADMIN_ANNOUNCEMENT 응답:', response.data);
       return Announcement.fromJson(response.data);
     } catch (error) {
-      console.error('[ADMIN ANNOUNCEMENT API] UPDATE_ADMIN_ANNOUNCEMENT 에러:', error);
       throw error;
     }
   },
@@ -93,16 +87,10 @@ export const announcementApi = {
     id: string,
     isPublished: boolean
   ): Promise<Announcement> => {
-    console.log('[ADMIN ANNOUNCEMENT API] UPDATE_ADMIN_ANNOUNCEMENT_STATUS 요청:', {
-      id,
-      isPublished,
-    });
     try {
       const response = await apiClient.patch(`/admin/announcements/${id}/status`, { isPublished });
-      console.log('[ADMIN ANNOUNCEMENT API] UPDATE_ADMIN_ANNOUNCEMENT_STATUS 응답:', response.data);
       return Announcement.fromJson(response.data);
     } catch (error) {
-      console.error('[ADMIN ANNOUNCEMENT API] UPDATE_ADMIN_ANNOUNCEMENT_STATUS 에러:', error);
       throw error;
     }
   },
@@ -117,21 +105,12 @@ export const announcementApi = {
     id: string,
     isImportant: boolean
   ): Promise<Announcement> => {
-    console.log('[ADMIN ANNOUNCEMENT API] UPDATE_ADMIN_ANNOUNCEMENT_IMPORTANCE 요청:', {
-      id,
-      isImportant,
-    });
     try {
       const response = await apiClient.patch(`/admin/announcements/${id}/importance`, {
         isImportant,
       });
-      console.log(
-        '[ADMIN ANNOUNCEMENT API] UPDATE_ADMIN_ANNOUNCEMENT_IMPORTANCE 응답:',
-        response.data
-      );
       return Announcement.fromJson(response.data);
     } catch (error) {
-      console.error('[ADMIN ANNOUNCEMENT API] UPDATE_ADMIN_ANNOUNCEMENT_IMPORTANCE 에러:', error);
       throw error;
     }
   },
@@ -142,15 +121,12 @@ export const announcementApi = {
    * @returns presigned URL과 업로드 정보를 반환합니다.
    */
   GET_IMAGE_UPLOAD_URL: async (contentType: string): Promise<ImageSource> => {
-    console.log('[ADMIN ANNOUNCEMENT API] GET_IMAGE_UPLOAD_URL 요청:', { contentType });
     try {
       const response = await apiClient.get<ImageSource>(
         `/admin/announcements/image/upload-url?contentType=${encodeURIComponent(contentType)}`
       );
-      console.log('[ADMIN ANNOUNCEMENT API] GET_IMAGE_UPLOAD_URL 응답:', response.data);
       return response.data;
     } catch (error) {
-      console.error('[ADMIN ANNOUNCEMENT API] GET_IMAGE_UPLOAD_URL 에러:', error);
       throw error;
     }
   },
