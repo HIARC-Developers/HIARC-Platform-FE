@@ -89,7 +89,7 @@ export function CurrentSemesterSection({
             {downloadExcel.isPending ? '다운로드 중...' : '명단 다운로드'}
           </Button>
         </div>
-        <MemberTable pageableModel={studentData} onPageChange={handlePageChange} />
+        <MemberTable pageableModel={studentData} onPageChange={(page) => handlePageChange(page - 1)} />
       </div>
     </div>
   );
