@@ -254,10 +254,10 @@ export const getMobileAdminAnnouncementListColumn = (
   {
     id: 'createdAt',
     accessorKey: 'createdAt',
-    size: 96,
+    size: 88,
     meta: {
-      headAlign: 'center',
-      bodyAlign: 'center',
+      headAlign: 'left',
+      bodyAlign: 'left',
     },
     header: () => (
       <Label size="md" weight="bold">
@@ -275,7 +275,7 @@ export const getMobileAdminAnnouncementListColumn = (
   },
   {
     id: 'more',
-    size: 60,
+    size: 40,
     meta: {
       headAlign: 'center',
       bodyAlign: 'center',

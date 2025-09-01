@@ -24,14 +24,14 @@ export function NextButton({ nextTitle, onClick, className }: NextButtonProps): 
           다음글
         </Label>
         <Divider variant="vertical" size="18px" />
-        <Label size="lg" className="text-gray-700">
+        <Label size="lg" className="max-w-[200px] truncate text-gray-700">
           {nextTitle}
         </Label>
       </span>
 
       {/* 데스크탑 */}
       <span className="hidden items-center gap-4 md:flex">
-        <Label size="lg" className="cursor-pointer text-gray-700">
+        <Label size="lg" className="max-w-[200px] cursor-pointer truncate text-gray-700">
           {nextTitle}
         </Label>
         <Divider variant="vertical" size="18px" />

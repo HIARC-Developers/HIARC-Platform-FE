@@ -4,7 +4,10 @@ import { Announcement, AnnouncementSummary, PageableModel } from '@hiarc-platfor
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
-import { getAdminAnnouncementListColumn, getMobileAdminAnnouncementListColumn } from './announcement-list-column';
+import {
+  getAdminAnnouncementListColumn,
+  getMobileAdminAnnouncementListColumn,
+} from './announcement-list-column';
 import { useDeleteAdminAnnouncement } from '../../hooks/use-delete-admin-announcement';
 
 interface AdminAnnouncementTableProps {
@@ -109,6 +112,7 @@ export function AnnouncementTable({
       {/* 모바일 뷰 */}
       <SlideFade key="mobile-table" className="block w-full md:hidden">
         <CommonTableBody
+          gapPx={0}
           table={mobileTable}
           onClick={function (row: Row<AnnouncementSummary>): void {
             const announcementId = row.original.announcementId;

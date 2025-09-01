@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, DialogUtil, FadeIn } from '@hiarc-platform/ui';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { IconButton } from '@hiarc-platform/ui';
 import { StudyAttendanceDialog } from '@/features/study/components/study-attendance-dialog';
 import { studyMemberApi } from '@/features/study/api';
@@ -12,12 +12,15 @@ import { MyInfo } from '@/features/auth/types/model/my-info';
 import { useState, useRef, useEffect } from 'react';
 import { SignupPopup } from './signup-popup';
 import { useCurrentSemester } from '@/features/semester/hooks/use-current-semester';
+import { useSignupPopup } from '@/shared/hooks/use-signup-popup';
 
 export function AuthenticatedUserSection(): React.ReactElement {
   const router = useRouter();
+  const pathname = usePathname();
   const logoutMutation = useLogout();
   const recruitNotificationReadMutation = useRecruitNotificationRead();
   const { data: currentSemesterData } = useCurrentSemester();
+  const { isPopupClosed, closePopup, initializeFromStorage } = useSignupPopup();
   const [myInfo, setMyInfo] = useState<MyInfo | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
@@ -68,6 +71,11 @@ export function AuthenticatedUserSection(): React.ReactElement {
     );
   };
 
+  // 컴포넌트 마운트 시 스토리지에서 상태 초기화
+  useEffect(() => {
+    initializeFromStorage();
+  }, [initializeFromStorage]);
+
   // 컴포넌트 마운트 시 사용자 정보 불러오기
   useEffect(() => {
     const fetchUserInfo = async (): Promise<void> => {
@@ -75,8 +83,8 @@ export function AuthenticatedUserSection(): React.ReactElement {
         const userData = await authApi.GET_ME();
         setMyInfo(userData);
 
-        // approvedNotification이 있으면 팝업 표시
-        if (userData?.approvedNotification) {
+        // approvedNotification이 있고 메인 페이지이며 팝업이 닫히지 않은 경우에만 팝업 표시
+        if (userData?.approvedNotification && pathname === '/' && !isPopupClosed) {
           setIsPopupOpen(true);
         }
       } catch (error) {
@@ -85,7 +93,14 @@ export function AuthenticatedUserSection(): React.ReactElement {
     };
 
     fetchUserInfo();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [pathname, isPopupClosed]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // isPopupClosed가 변경되면 로컬 팝업도 닫기
+  useEffect(() => {
+    if (isPopupClosed) {
+      setIsPopupOpen(false);
+    }
+  }, [isPopupClosed]);
 
   // 팝업 외부 클릭시 닫기
   useEffect(() => {
@@ -97,6 +112,7 @@ export function AuthenticatedUserSection(): React.ReactElement {
         !buttonRef.current.contains(event.target as Node)
       ) {
         setIsPopupOpen(false);
+        closePopup();
       }
     };
 
@@ -107,7 +123,7 @@ export function AuthenticatedUserSection(): React.ReactElement {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isPopupOpen]);
+  }, [isPopupOpen, closePopup]);
 
   const handleAttendanceCheck = async (): Promise<void> => {
     try {
@@ -155,6 +171,7 @@ export function AuthenticatedUserSection(): React.ReactElement {
                     recruitNotificationReadMutation.mutate(myInfo.approvedNotification.semesterId);
                   }
                   setIsPopupOpen(false);
+                  closePopup();
                 }}
               />
             </FadeIn>

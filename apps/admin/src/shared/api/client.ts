@@ -21,7 +21,9 @@ const apiClient: AxiosInstance = axios.create({
 // Pretty Logger (dio style) - Only in development
 const prettyLog = {
   request: (config: InternalAxiosRequestConfig) => {
-    if (process.env.NODE_ENV === 'production') return;
+    if (process.env.NODE_ENV === 'production') {
+      return;
+    }
 
     const timestamp = new Date().toLocaleTimeString();
     console.group(`🚀 [${timestamp}] ${config.method?.toUpperCase()} ${config.url}`);
@@ -42,7 +44,9 @@ const prettyLog = {
   },
 
   response: (response: AxiosResponse) => {
-    if (process.env.NODE_ENV === 'production') return;
+    if (process.env.NODE_ENV === 'production') {
+      return;
+    }
 
     const timestamp = new Date().toLocaleTimeString();
     const configWithTime = response.config as InternalAxiosRequestConfig & {
@@ -72,7 +76,9 @@ const prettyLog = {
   },
 
   error: (error: AxiosError) => {
-    if (process.env.NODE_ENV === 'production') return;
+    if (process.env.NODE_ENV === 'production') {
+      return;
+    }
 
     const timestamp = new Date().toLocaleTimeString();
     const config = error.config;

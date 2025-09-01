@@ -24,11 +24,11 @@ export function PreviousButton({
     >
       {/* 모바일 */}
       <span className="flex items-center gap-2 text-gray-900 md:hidden">
-        <Label size="lg" className="text-gray-900">
+        <Label size="lg" className="whitespace-nowrap text-gray-900">
           이전글
         </Label>
         <Divider variant="vertical" size="18px" />
-        <Label size="lg" className="text-gray-700">
+        <Label size="lg" className="max-w-[200px] truncate text-gray-700">
           {prevTitle}
         </Label>
       </span>
@@ -42,11 +42,15 @@ export function PreviousButton({
           alt="Previous"
           className="inline-block"
         />
-        <Label size="lg" weight="regular" className="cursor-pointer text-gray-900">
+        <Label size="lg" weight="regular" className="cursor-pointer  text-gray-900">
           이전글
         </Label>
         <Divider variant="vertical" size="18px" />
-        <Label size="lg" weight="regular" className="cursor-pointer text-gray-700">
+        <Label
+          size="lg"
+          weight="regular"
+          className="max-w-[200px] cursor-pointer truncate text-gray-700"
+        >
           {prevTitle}
         </Label>
       </span>
