@@ -139,6 +139,12 @@ export const studyApi = {
   GET_STUDY_MEMBERS: async (studyId: number): Promise<StudyMember[]> => {
     try {
       const response = await apiClient.get(`/studies/${studyId}/instructor/status`);
+
+      // response.data가 배열인지 확인
+      if (!Array.isArray(response.data)) {
+        return [];
+      }
+
       return response.data.map((member: unknown) => StudyMember.fromJson(member));
     } catch (error) {
       console.error('[STUDY API] GET_STUDY_MEMBERS 에러:', error);

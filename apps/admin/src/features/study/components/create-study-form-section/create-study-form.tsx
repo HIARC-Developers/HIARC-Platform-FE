@@ -147,16 +147,24 @@ export function CreateStudyForm({
       bojHandle: formData.bojHandle,
       isGroupStudy: formData.isGroupStudy,
       semesterId: formData.semesterId,
-      startDate: studyPeriod[0]?.toISOString().split('T')[0] || null,
-      endDate: studyPeriod[1]?.toISOString().split('T')[0] || null,
+      startDate: studyPeriod[0]
+        ? new Date(studyPeriod[0].getTime() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]
+        : null,
+      endDate: studyPeriod[1]
+        ? new Date(studyPeriod[1].getTime() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]
+        : null,
       scheduledDays: selectedDays.length > 0 ? selectedDays : null,
       startTime: selectedStartTime ? normalizeTimeFormat(selectedStartTime) : null,
       isOnline: isOnline === 'ONLINE' ? true : isOnline === 'IN_PERSON' ? false : null,
       isPublic: isPublic === 'PUBLIC' ? true : isPublic === 'PRIVATE' ? false : null,
       lang: formData.lang,
       introduction: formData.introduction,
-      recruitmentStartAt: cruitPeriod[0]?.toISOString().split('T')[0] || null,
-      recruitmentEndAt: cruitPeriod[1]?.toISOString().split('T')[0] || null,
+      recruitmentStartAt: cruitPeriod[0]
+        ? new Date(cruitPeriod[0].getTime() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]
+        : null,
+      recruitmentEndAt: cruitPeriod[1]
+        ? new Date(cruitPeriod[1].getTime() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]
+        : null,
       precaution: formData.precaution,
     };
 
