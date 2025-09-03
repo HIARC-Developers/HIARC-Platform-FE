@@ -11,7 +11,7 @@ export function SignupPopup({ onClose }: SignupPopupProps): React.ReactElement {
   };
 
   const handleDiscordClick = (): void => {
-    window.open('https://discord.gg/7XCCBGsw', '_blank');
+    window.open('https://discord.gg/hjzVcH3p', '_blank');
   };
 
   return (
