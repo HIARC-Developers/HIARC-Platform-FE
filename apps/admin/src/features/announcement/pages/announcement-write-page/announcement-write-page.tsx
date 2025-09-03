@@ -6,7 +6,7 @@ import { useImageUpload } from '@/features/announcement/hooks/use-image-upload';
 import { CreateAnnouncementForm, CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
 import { useStudyOptions } from '@/features/study/hooks';
-import { AnnouncementWrite, DialogUtil } from '@hiarc-platform/ui';
+import { AnnouncementWrite, BackButton, DialogUtil, Divider, Title } from '@hiarc-platform/ui';
 
 export function AnnouncementWritePage(): React.ReactElement {
   const router = useRouter();
@@ -14,6 +14,10 @@ export function AnnouncementWritePage(): React.ReactElement {
   const { mutate: createAnnouncement } = useCreateAdminAnnouncement();
   const { mutate: uploadImage } = useImageUpload();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleBackClick = (): void => {
+    router.back();
+  };
 
   // Get query parameters
   const initialType = searchParams.get('type') as
@@ -126,14 +130,27 @@ export function AnnouncementWritePage(): React.ReactElement {
   };
 
   return (
-    <AnnouncementWrite
-      studyOptions={studyOptions}
-      initialAnnouncementType={initialType || 'GENERAL'}
-      initialStudyId={initialStudyId ? Number(initialStudyId) : undefined}
-      initialStudyAnnounceType={(isLecture ? '회차별 공지' : '일반') as '회차별 공지' | '일반'}
-      onSubmit={(data) => {
-        handleSubmit(data as CreateAnnouncementForm);
-      }}
-    />
+    <>
+      <div className="hidden md:block">
+        <div className="flex w-full flex-col items-center gap-3 pb-6">
+          <BackButton onClick={handleBackClick} />
+          <div className="flex w-full items-center justify-between">
+            <Title size="sm" weight="bold">
+              공지사항 작성
+            </Title>
+          </div>
+          <Divider variant="horizontal" size="full" />
+        </div>
+      </div>
+      <AnnouncementWrite
+        studyOptions={studyOptions}
+        initialAnnouncementType={initialType || 'GENERAL'}
+        initialStudyId={initialStudyId ? Number(initialStudyId) : undefined}
+        initialStudyAnnounceType={(isLecture ? '회차별 공지' : '일반') as '회차별 공지' | '일반'}
+        onSubmit={(data) => {
+          handleSubmit(data as CreateAnnouncementForm);
+        }}
+      />
+    </>
   );
 }
