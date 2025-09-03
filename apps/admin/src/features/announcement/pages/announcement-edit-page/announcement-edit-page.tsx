@@ -201,6 +201,17 @@ export function AnnouncementEditPage(): React.ReactElement {
 
   return (
     <div className="w-full">
+      <div className="hidden md:block">
+        <div className="flex w-full flex-col items-center gap-3 pb-6">
+          <BackButton onClick={handleBackClick} />
+          <div className="flex w-full items-center justify-between">
+            <Title size="sm" weight="bold">
+              공지사항 작성
+            </Title>
+          </div>
+          <Divider variant="horizontal" size="full" />
+        </div>
+      </div>
       <AnnouncementWrite
         announcementId={id}
         announcement={announcement}
