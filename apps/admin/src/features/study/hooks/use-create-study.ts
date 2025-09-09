@@ -10,10 +10,11 @@ export function useCreateStudy(): UseMutationResult<Study, Error, CreateStudyReq
 
   const mutation = useMutation({
     mutationFn: studyApi.CREATE_STUDY,
-    onSuccess: (response) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['studies'] });
-      DialogUtil.showSuccess('스터디가 성공적으로 생성되었습니다.');
-      router.push(`/study/${response.studyId}`);
+      DialogUtil.showSuccess('스터디가 성공적으로 생성되었습니다.', () => {
+        router.back();
+      });
     },
   });
 

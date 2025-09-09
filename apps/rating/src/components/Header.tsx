@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Color from '../ui/Color';
+import Color from '../util/Color';
 import HeaderInput from '../atoms/HeaderInput';
 import { useNavigate } from 'react-router-dom';
 import Home from '../assets/Home.svg';

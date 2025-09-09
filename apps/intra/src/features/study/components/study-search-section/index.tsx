@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, cn, DialogUtil, LabeledInput, LabeledSelector } from '@hiarc-platform/ui';
+import { Button, cn, DialogUtil, Label, LabeledInput, LabeledSelector } from '@hiarc-platform/ui';
 import React, { useState, useEffect } from 'react';
 import { StudySearchDialog } from './study-search-dialog';
 import { StudyQueryParams } from '../../types/request/study-query-params';
@@ -128,8 +128,13 @@ export function StudySearchSection({
 
       {/* Mobile View */}
       <div className={cn('md:hidden', className)}>
-        <Button variant="line_secondary" size="xs" onClick={handleOpenDialog}>
-          상세 검색
+        <Button
+          variant="line_secondary"
+          size="xs"
+          className="rounded-md"
+          onClick={handleOpenDialog}
+        >
+          <Label weight="medium">상세 검색</Label>
         </Button>
       </div>
     </>

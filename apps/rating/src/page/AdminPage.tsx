@@ -2,7 +2,7 @@ import AdminEnd from '../block/adminBlock/AdminEnd';
 import AdminInput from '../block/adminBlock/AdminInput';
 import HistoryCheck from '../block/adminBlock/HistoryCheck';
 import { AdminCheckCurrent } from '../block/adminBlock/AdminCheckCurrent';
-import LayOut from '../ui/Layout';
+import LayOut from '../util/Layout';
 import styled from 'styled-components';
 const HeadWrapper = styled.div`
   font-size: 35px;

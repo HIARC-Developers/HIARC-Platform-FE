@@ -1,6 +1,7 @@
 export interface CreateStudyRequest {
   name: string;
   bojHandle: string;
+  isGroupStudy: boolean;
   semesterId: number | null;
   startDate?: string | null;
   endDate?: string | null;

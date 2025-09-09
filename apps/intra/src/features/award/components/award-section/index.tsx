@@ -35,7 +35,9 @@ export function AwardSection({
       </div>
 
       {!awardList || awardList.length === 0 ? (
-        <Label className="py-20 text-center">대회 정보가 없어요</Label>
+        <Label className="py-20 text-center" size="lg">
+          대회 정보가 없어요.
+        </Label>
       ) : (
         awardList.map((award) => <AwardListItem key={award.awardId} award={award} />)
       )}

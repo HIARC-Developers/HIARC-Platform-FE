@@ -2,7 +2,7 @@ export interface Award {
   awardId?: number | null;
   memberId?: number | null;
   memberName?: string | null;
-  handle?: string | null;
+  bojHandle?: string | null;
   organization?: string | null;
   awardName?: string | null;
   awardDetail?: string | null;
@@ -17,7 +17,7 @@ export const Award = {
       awardId: (data.awardId as number) || null,
       memberId: (data.memberId as number) || null,
       memberName: (data.memberName as string) || null,
-      handle: (data.handle as string) || null,
+      bojHandle: (data.bojHandle as string) || null,
       organization: (data.organization as string) || null,
       awardName: (data.awardName as string) || null,
       awardDetail: (data.awardDetail as string) || null,

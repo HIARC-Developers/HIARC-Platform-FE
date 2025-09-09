@@ -44,10 +44,10 @@ export function ConfirmDialog({
         showBackground={showBackground ?? dialog.showBackground}
       >
         <div className="flex flex-col space-y-4 py-2">
-          <DialogHeader className="text-center">
+          <DialogHeader className="text-left">
             <DialogTitle>{dialog.title}</DialogTitle>
           </DialogHeader>
-          <DialogDescription className="pt-4">
+          <DialogDescription className="pt-4 text-left">
             {typeof dialog.content === 'string' ? (
               <Label size="lg" weight="regular">
                 {dialog.content}

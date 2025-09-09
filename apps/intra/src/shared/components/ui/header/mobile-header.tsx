@@ -1,22 +1,71 @@
 'use client';
 
-import { Button, cn, IconButton, Input } from '@hiarc-platform/ui';
+import {
+  Button,
+  cn,
+  IconButton,
+  Input,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@hiarc-platform/ui';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { AuthenticatedMobileSection } from './authenticated-mobile-section';
+import { myApi } from '@/features/member/api/member';
 
 interface MobileHeaderProps {
   isAuthenticated: boolean;
+  searchInput: string;
+  setSearchInput(value: string): void;
 }
 
-export function MobileHeader({ isAuthenticated }: MobileHeaderProps): React.ReactElement {
+export function MobileHeader({
+  isAuthenticated,
+  searchInput,
+  setSearchInput,
+}: MobileHeaderProps): React.ReactElement {
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [showError, setShowError] = useState(false);
   const router = useRouter();
+  const [isFetching, setIsFetching] = useState(false);
 
   const handleLogin = (): void => {
     router.push('/login');
+  };
+
+  const handleSearch = async (handle: string): Promise<void> => {
+    if (!handle.trim()) {
+      return;
+    }
+
+    setShowError(false);
+
+    setIsFetching(true);
+
+    try {
+      const memberId = await myApi.GET_MEMBER_ID_BY_HANDLE(handle);
+      if (memberId) {
+        router.push(`/member/${memberId}`);
+        setIsMobileSearchOpen(false);
+        setSearchInput('');
+      } else {
+        setShowError(true);
+      }
+    } catch (error) {
+      setShowError(true);
+    } finally {
+      setIsFetching(false);
+    }
+  };
+
+  const closeError = (): void => {
+    setShowError(false);
   };
 
   return (
@@ -31,9 +80,17 @@ export function MobileHeader({ isAuthenticated }: MobileHeaderProps): React.Reac
           <Input
             type="search"
             variant="search"
-            placeholder="검색어를 입력하세요"
+            placeholder={isAuthenticated ? 'BOJ 핸들명을 입력하세요' : '로그인 후 검색 가능합니다'}
             className="mx-4 h-[44px] flex-1 text-base"
             autoFocus
+            value={searchInput}
+            onChange={(event) => setSearchInput(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && isAuthenticated) {
+                handleSearch(searchInput);
+              }
+            }}
+            disabled={!isAuthenticated || isFetching}
           />
           <IconButton
             iconSrc="/shared-assets/Close.svg"
@@ -56,7 +113,8 @@ export function MobileHeader({ isAuthenticated }: MobileHeaderProps): React.Reac
               size="lg"
               iconSrc="/shared-assets/ZoomIn.svg"
               aria-label="검색"
-              onClick={() => setIsMobileSearchOpen(true)}
+              onClick={() => isAuthenticated && setIsMobileSearchOpen(true)}
+              disabled={!isAuthenticated}
             />
             {isAuthenticated ? (
               <AuthenticatedMobileSection />
@@ -76,8 +134,18 @@ export function MobileHeader({ isAuthenticated }: MobileHeaderProps): React.Reac
               <div className="flex items-center gap-2 border-b border-gray-200 px-5 py-2">
                 <Input
                   variant="search"
-                  placeholder="검색어를 입력하세요"
+                  placeholder={
+                    isAuthenticated ? 'BOJ 핸들명을 입력하세요' : '로그인 후 검색 가능합니다'
+                  }
                   className="flex-1 text-base"
+                  value={searchInput}
+                  onChange={(event) => setSearchInput(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' && isAuthenticated) {
+                      handleSearch(searchInput);
+                    }
+                  }}
+                  disabled={!isAuthenticated || isFetching}
                 />
                 <IconButton
                   iconSrc="/shared-assets/Close.svg"
@@ -89,6 +157,18 @@ export function MobileHeader({ isAuthenticated }: MobileHeaderProps): React.Reac
           </div>
         </div>
       )}
+
+      <Dialog open={showError} onOpenChange={closeError}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>검색 실패</DialogTitle>
+            <DialogDescription>해당 BOJ 핸들명을 가진 회원을 찾을 수 없습니다.</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button onClick={closeError}>확인</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

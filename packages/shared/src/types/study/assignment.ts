@@ -2,6 +2,7 @@ export interface Assignment {
   requiredProblemUrl: string;
   practiceProblemUrl: string;
   minProblemCount: number;
+  isUpdatable: boolean;
 }
 
 export const Assignment = {
@@ -11,6 +12,7 @@ export const Assignment = {
       requiredProblemUrl: (data.requiredProblemUrl as string) || '',
       practiceProblemUrl: (data.practiceProblemUrl as string) || '',
       minProblemCount: (data.minProblemCount as number) || 0,
+      isUpdatable: (data.isUpdatable as boolean) || false,
     };
   },
 };

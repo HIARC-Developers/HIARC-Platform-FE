@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // axios 인스턴스 생성 -> 매번 기본 설정 하기 어려우니
 const apiClient = axios.create({
-  baseURL: 'https://hi-rating.co.kr',
+  baseURL: 'https://test.hiarc-official.com',
   headers: {
     'Content-Type': 'application/json',
   },

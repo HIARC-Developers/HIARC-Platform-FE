@@ -30,7 +30,7 @@ const MainContainer = styled.div`
 const EventBlock = () => {
   const [hitingData] = useAtom(hitingDataAtom);
 
-  const eventList = hitingData.eventList?.slice(0, 6) || [];
+  const eventList = hitingData.eventRanking?.slice(0, 6) || [];
 
   return (
     <Wrapper>
@@ -41,9 +41,9 @@ const EventBlock = () => {
         {eventList.map((event, index) => (
           <EventEntity
             key={index}
-            handle={event.handle}
+            handle={event.bojHandle}
             tier={event.tier}
-            eventHiting={event.eventHiting}
+            eventHiting={event.currentEventScore}
             rank={index + 1}
           />
         ))}

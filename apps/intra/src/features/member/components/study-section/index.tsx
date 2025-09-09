@@ -1,6 +1,8 @@
-import { cn, Label, LabeledSelector, Tabs } from '@hiarc-platform/ui';
+import { cn, Label, LabeledSelector, Tabs, Button } from '@hiarc-platform/ui';
 import { AttendanceTable } from '@hiarc-platform/ui/src/components/table/attendance-table';
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 import { SelectOption } from '@hiarc-platform/shared';
 import { useMyStudies } from '@/features/study/hooks/study-member/query/use-my-studies';
@@ -68,14 +70,20 @@ export function StudySection({ className }: StudySectionProps): React.ReactEleme
         }}
         className="mt-6 max-w-[390px]"
       />
-      <Label size="lg" weight="bold" className="mt-6">
-        상세 현황
-      </Label>
-      <AttendanceTable
-        className="mb-20 mt-4"
-        attendance={attendanceStatus}
-        assignment={assignmentStatus}
-      />
+      <div className="flex justify-between">
+        <Label size="lg" weight="bold" className="mt-6">
+          상세 현황
+        </Label>
+        {selectedStudyId && (
+          <Link href={`/study/${selectedStudyId}`} className="mt-4 self-start">
+            <Button variant="secondary" size="xs" className="text-md">
+              스터디 바로가기
+              <Image src="/shared-assets/GoFast.svg" alt="GoFast" width={16} height={16} />
+            </Button>
+          </Link>
+        )}
+      </div>
+      <AttendanceTable className="mb-20 mt-4" roundStatuses={myStudyInfo?.roundStatuses || []} />
     </div>
   );
 }

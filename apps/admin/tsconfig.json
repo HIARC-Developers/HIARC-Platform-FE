@@ -25,6 +25,13 @@
       "@hiarc-platform/ui": ["../../packages/ui/src"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "types/**/*.d.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "types/**/*.d.ts",
+    "../../packages/ui/src/components/study/study-group-list.tsx"
+  ],
   "exclude": ["node_modules"]
 }

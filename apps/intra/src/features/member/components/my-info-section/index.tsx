@@ -43,12 +43,24 @@ export function MyInfoSection({
     );
   };
 
+  const handleBojHandleClick = (): void => {
+    if (bojHandle) {
+      window.open(`https://solved.ac/profile/${bojHandle}`, '_blank');
+    }
+  };
+
   return (
     <div className={cn('flex w-full flex-col gap-4 ', className)}>
       <div className="flex w-full flex-col gap-1">
         <div className="flex w-full justify-between">
           <div className="flex w-full items-center gap-2">
-            <Title size="sm" weight="bold" disableAnimation={true}>
+            <Title
+              size="sm"
+              weight="bold"
+              disableAnimation={true}
+              className="cursor-pointer"
+              onClick={handleBojHandleClick}
+            >
               {bojHandle}
             </Title>
             <Title size="sm" weight="semibold" disableAnimation={true} className="text-gray-500">

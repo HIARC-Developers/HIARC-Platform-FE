@@ -1,5 +1,5 @@
-import { NumberToTear } from '../ui/NumberToTear';
-import { NumberToStreakColor } from '../ui/NumberToStreakColor';
+import { NumberToTear } from '../util/NumberToTear';
+import { NumberToStreakColor } from '../util/NumberToStreakColor';
 import styled from 'styled-components';
 
 const Button = styled.div<{ $tier: number }>`

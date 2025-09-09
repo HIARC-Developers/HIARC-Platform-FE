@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import CircularProgress from '../atoms/CircularProgress';
-import Color from '../ui/Color';
-import { NumberToStreakColor } from '../ui/NumberToStreakColor';
+import Color from '../util/Color';
+import { NumberToStreakColor } from '../util/NumberToStreakColor';
 const Wrapper = styled.div`
   width: 460px;
   display: flex;

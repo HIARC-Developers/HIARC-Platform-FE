@@ -1,21 +1,12 @@
 'use client';
 
-import { BackButton, Button, LoadingDots, StudyInfoSection } from '@hiarc-platform/ui';
+import { LoadingDots, StudyInfoSection, MobileStudyButton } from '@hiarc-platform/ui';
 import { useStudyDetailPageState } from '@/features/study/hooks/page/use-study-detail-page-state';
 import { TabSection } from '@/features/study/components/tab-section';
 
 export function MobileStudyDetailPage(): React.ReactElement {
-  const {
-    studyId,
-    studyData,
-    isLoading,
-    error,
-    mounted,
-    handleEditClick,
-    handleApplyClick,
-    handleBackClick,
-    handleListClick,
-  } = useStudyDetailPageState();
+  const { studyId, studyData, isLoading, error, mounted, handleEditClick, handleApplyClick } =
+    useStudyDetailPageState();
 
   if (!mounted || isLoading) {
     return (
@@ -34,8 +25,7 @@ export function MobileStudyDetailPage(): React.ReactElement {
   }
 
   return (
-    <div className="flex flex-col">
-      <BackButton onClick={handleBackClick} />
+    <div className="flex flex-col pt-10 pb-20 md:pb-0">
       <StudyInfoSection
         className="pt-4"
         studyData={studyData}
@@ -49,12 +39,9 @@ export function MobileStudyDetailPage(): React.ReactElement {
         isAdmin={studyData?.isInstructor ?? false}
         studyId={studyId}
         semesterId={studyData?.semesterId ?? 1}
+        isGroupStudy={studyData?.isGroupStudy ?? false}
       />
-      <div className="mt-6 flex items-center justify-center gap-4">
-        <Button variant="line" className="w-full" onClick={handleListClick}>
-          목록으로
-        </Button>
-      </div>
+      <MobileStudyButton studyData={studyData} onApplyClick={handleApplyClick} />
     </div>
   );
 }

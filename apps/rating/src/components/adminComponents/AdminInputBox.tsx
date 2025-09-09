@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import Color from '../../ui/Color';
+import Color from '../../util/Color';
 import { useState } from 'react';
 import { getAdminHandleStats } from '../../api/AdminApi';
-import { blockNameToCode } from '../../ui/CheckAdminName';
+import { blockNameToCode } from '../../util/CheckAdminName';
 import { Modal } from '../Modal';
 const Wrapper = styled.div`
   overflow: visible;

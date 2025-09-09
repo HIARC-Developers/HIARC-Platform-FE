@@ -44,4 +44,15 @@ export const awardApi = {
   DELETE_ADMIN_AWARD: async (awardId: number): Promise<void> => {
     await apiClient.delete(`/admin/awards/${awardId}`);
   },
+
+  /**
+   * ID로 수상 내역을 삭제하는 API입니다.
+   * @param bojHandle - 검증할 백준 아이디입니다.
+   * @returns void
+   */
+  VALIDATE_AWARD_HANDLE: async (bojHandle: string): Promise<void> => {
+    await apiClient.post('/admin/awards/validate-handle', {
+      bojHandle: bojHandle,
+    });
+  },
 };

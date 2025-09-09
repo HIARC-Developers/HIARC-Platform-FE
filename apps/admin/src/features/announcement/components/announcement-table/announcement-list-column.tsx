@@ -180,16 +180,7 @@ export const getAdminAnnouncementListColumn = (
             '삭제된 공지사항은 복구할 수 없습니다.',
             () => {
               if (row.original.announcementId) {
-                deleteAnnouncement(row.original.announcementId, {
-                  onSuccess: () => {
-                    DialogUtil.showSuccess('삭제되었습니다.');
-                  },
-                  onError: (error) => {
-                    const errorMessage =
-                      error instanceof Error ? error.message : '삭제에 실패했습니다.';
-                    DialogUtil.showError(errorMessage);
-                  },
-                });
+                deleteAnnouncement(row.original.announcementId);
               }
             },
             undefined,
@@ -294,16 +285,7 @@ export const getMobileAdminAnnouncementListColumn = (
             '삭제된 공지사항은 복구할 수 없습니다.',
             () => {
               if (announcement.announcementId) {
-                deleteAnnouncement(announcement.announcementId, {
-                  onSuccess: () => {
-                    DialogUtil.showSuccess('삭제되었습니다.');
-                  },
-                  onError: (error) => {
-                    const errorMessage =
-                      error instanceof Error ? error.message : '삭제에 실패했습니다.';
-                    DialogUtil.showError(errorMessage);
-                  },
-                });
+                deleteAnnouncement(announcement.announcementId);
               }
             },
             undefined,

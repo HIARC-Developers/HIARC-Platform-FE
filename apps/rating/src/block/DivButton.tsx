@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Color from '../ui/Color';
+import Color from '../util/Color';
 
 const Wrapper = styled.button<{ $isSelected: boolean }>`
   font-size: 11px;

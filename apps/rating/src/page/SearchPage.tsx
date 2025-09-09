@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { useSearchParams } from 'react-router-dom';
 import { handleAtom } from '../store/Atom';
-import LayOut from '../ui/Layout';
+import LayOut from '../util/Layout';
 import styled from 'styled-components';
 import SearchedStreakEntity from '../components/SearchedStreakEnity';
 import SearchedHitingEntity from '../components/SearchedHitingEntity';

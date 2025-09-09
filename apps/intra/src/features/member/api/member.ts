@@ -37,7 +37,7 @@ export const myApi = {
    * @returns 회원 ID를 반환합니다.
    */
   GET_MEMBER_ID_BY_HANDLE: async (bojHandle: string): Promise<number> => {
-    const response = await apiClient.get('/members/me/handle', {
+    const response = await apiClient.get('/members/search', {
       params: {
         bojHandle,
       },

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import DivButton from '../block/DivButton';
-import Color from '../ui/Color';
+import Color from '../util/Color';
 import { Dispatch, SetStateAction } from 'react';
 
 const Wrapper = styled.div`

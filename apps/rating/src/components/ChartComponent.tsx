@@ -1,7 +1,7 @@
 import React from 'react';
 import { LineChart, Line, YAxis, Tooltip, LabelList } from 'recharts';
 import styled from 'styled-components';
-import Color from '../ui/Color';
+import Color from '../util/Color';
 
 const ChartWrapper = styled.div`
   width: 302px;

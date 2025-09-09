@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 import { handleAtom } from '../store/Atom';
 import Img from './../assets/InputImg.png';
-import Color from '../ui/Color';
+import Color from '../util/Color';
 
 const Wrapper = styled.div`
   width: 339px;

@@ -10,6 +10,7 @@ interface HitingSectionProps {
   today: number;
   ratingRecords?: RatingRecord[];
   className?: string;
+  isMe?: boolean;
 }
 
 export function HitingSection({
@@ -18,6 +19,7 @@ export function HitingSection({
   today,
   ratingRecords,
   className,
+  isMe = true,
 }: HitingSectionProps): React.ReactElement {
   return (
     <div className={`flex w-full flex-col gap-4 ${className}`}>
@@ -42,18 +44,20 @@ export function HitingSection({
             ))}
           </div>
         ) : (
-          <div className="flexl justify-center">
+          <div className="flex justify-center">
             <Label size="lg" weight="regular" className="text-gray-700">
-              하이팅에 참여하시고, 10위 안에 도전해보세요!
+              {isMe ? '하이팅에 참여하시고, 10위 안에 도전해보세요!' : '하이팅 참여 기록이 없어요.'}
             </Label>
-            <Label
-              size="lg"
-              weight="regular"
-              className="ml-2 cursor-pointer text-gray-700 underline"
-              onClick={() => window.open('https://rating.hiarc-official.com', '_blank')}
-            >
-              하이팅 바로가기
-            </Label>
+            {isMe && (
+              <Label
+                size="lg"
+                weight="regular"
+                className="ml-2 cursor-pointer text-gray-700 underline"
+                onClick={() => window.open('https://rating.hiarc-official.com', '_blank')}
+              >
+                하이팅 바로가기
+              </Label>
+            )}
           </div>
         )}
       </SectionContainer>

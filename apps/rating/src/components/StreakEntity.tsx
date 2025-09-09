@@ -1,8 +1,8 @@
 import InfoEntity from '../atoms/InfoEntity';
 import styled from 'styled-components';
 import CircularProgress from '../atoms/CircularProgress';
-import Color from '../ui/Color';
-import { NumberToStreakColor } from '../ui/NumberToStreakColor';
+import Color from '../util/Color';
+import { NumberToStreakColor } from '../util/NumberToStreakColor';
 import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`

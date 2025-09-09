@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Color from '../ui/Color';
-import TierImg from '../ui/TierImg';
+import Color from '../util/Color';
+import TierImg from '../util/TierImg';
 const Wrapper = styled.div`
   display: flex;
   align-items: center;

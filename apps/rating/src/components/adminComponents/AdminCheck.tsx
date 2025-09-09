@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { checkAdminName } from '../../ui/CheckAdminName';
+import { checkAdminName } from '../../util/CheckAdminName';
 import { checkAdminApi } from '../../api/AdminApi';
 import { useState } from 'react';
 import { Modal } from '../Modal';

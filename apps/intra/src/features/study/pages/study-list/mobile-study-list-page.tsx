@@ -26,18 +26,13 @@ export function MobileStudyListPage(): React.ReactElement {
   }
 
   return (
-    <>
-      <div className="flex items-center justify-between">
-        <Title size="sm" weight="bold">
-          스터디
-        </Title>
-      </div>
+    <div className="flex w-full flex-col pt-10">
       <StudySearchSection
         className="mt-4"
         onSearchChange={handleSearch}
         initialValues={filterParams}
       />
       <StudyTable className="mt-4" pageableModel={studies} onPageChange={handlePageChange} />
-    </>
+    </div>
   );
 }

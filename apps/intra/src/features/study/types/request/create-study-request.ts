@@ -5,4 +5,5 @@ export interface CreateStudyRequest {
   maxParticipants: number;
   startDate: Date;
   endDate: Date;
+  isGroupStudy: boolean;
 }

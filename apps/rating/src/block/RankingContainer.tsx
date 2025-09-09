@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import RankingContainerExplainBar from '../components/RankingContainerExplainBar';
 import RankingEntity from '../components/RankingEntity';
-import { fetchRankingData } from '../api/RanikingApi';
 
 const Wrapper = styled.div`
   width: 673px;
@@ -13,47 +11,32 @@ const Wrapper = styled.div`
   }
 `;
 
-const RankingContiner = ({ selected }: { selected: number }) => {
-  const [rankingData, setRankingData] = useState<
-    {
-      num: number;
-      handle: string;
-      tier: number;
-      event: boolean;
-      today: number;
-      total: number;
-    }[]
-  >([]);
+interface RankingContainerProps {
+  rankingData: {
+    num: number;
+    bojHandle: string;
+    tier: number;
+    today: number;
+    total: number;
+  }[];
+  error: string | null;
+}
 
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadRankingData = async () => {
-      try {
-        const data = await fetchRankingData(selected);
-        setRankingData(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : '알 수 없는 오류 발생');
-      }
-    };
-
-    loadRankingData();
-  }, [selected]);
-
+const RankingContiner = ({ rankingData, error }: RankingContainerProps) => {
   if (error) return <p>오류 발생: {error}</p>;
 
   return (
     <Wrapper>
       <RankingContainerExplainBar />
-      {rankingData.map(({ num, handle, tier, today, total, event }) => (
+      {rankingData.map(({ num, bojHandle, tier, today, total }) => (
         <RankingEntity
           key={num}
           ranking={num}
-          handle={handle}
+          handle={bojHandle}
           tier={tier}
           today={today}
           total={total}
-          event={event}
+          event={false} // RankingApi에서 event 필드가 없으므로 기본값으로 설정
         />
       ))}
     </Wrapper>

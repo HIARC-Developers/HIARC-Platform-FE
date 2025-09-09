@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Color from '../ui/Color'; // 기본 색상 관리 파일
+import Color from '../util/Color'; // 기본 색상 관리 파일
 
 // 스타일 지정
 const ChartWrapper = styled.div`

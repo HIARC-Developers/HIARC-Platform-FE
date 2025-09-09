@@ -11,6 +11,7 @@ import {
   Label,
   LabeledCalanderInput,
   LabeledInput,
+  LabeledSelectButton,
 } from '@hiarc-platform/ui';
 import React from 'react';
 import { useUpdateAward } from '../../hooks/use-update-award';
@@ -33,6 +34,10 @@ export function EditCompetitionDialog({
     awardDetail: award.awardDetail || '',
   });
 
+  const [recordType, setRecordType] = React.useState<'participation' | 'award'>(
+    award.awardDetail === '참여' ? 'participation' : 'award'
+  );
+
   const updateAwardMutation = useUpdateAward();
 
   const handleSave = async (): Promise<void> => {
@@ -41,15 +46,13 @@ export function EditCompetitionDialog({
         organization: formData.organization,
         awardName: formData.awardName,
         awardDate: formData.awardDate,
-        awardDetail: formData.awardDetail,
+        awardDetail: recordType === 'participation' ? '참여' : formData.awardDetail,
       };
 
       await updateAwardMutation.mutateAsync({
         awardId: award.awardId ?? 0,
         data: updateData,
       });
-
-      DialogUtil.hideAllDialogs();
     } catch (error) {
       console.error('💥 [EDIT AWARD] 수정 실패:', error);
       throw error;
@@ -105,12 +108,29 @@ export function EditCompetitionDialog({
                 }))
               }
             />
-            <LabeledInput
-              label="수상 내역"
-              placeholder="예) 본선 진출, 3위, 장려상, 특별상 등"
-              value={formData.awardDetail}
-              onChange={(value) => setFormData((prev) => ({ ...prev, awardDetail: value }))}
+            <LabeledSelectButton
+              label="기록 유형"
+              options={[
+                { label: '참여', value: 'participation' },
+                { label: '수상', value: 'award' },
+              ]}
+              value={recordType}
+              onChange={(value) => {
+                setRecordType(value as 'participation' | 'award');
+                // 참여로 변경할 때 수상 내역 초기화
+                if (value === 'participation') {
+                  setFormData((prev) => ({ ...prev, awardDetail: '' }));
+                }
+              }}
             />
+            {recordType === 'award' && (
+              <LabeledInput
+                label="수상 내역"
+                placeholder="예) 본선 진출, 3위, 장려상, 특별상 등"
+                value={formData.awardDetail}
+                onChange={(value) => setFormData((prev) => ({ ...prev, awardDetail: value }))}
+              />
+            )}
           </div>
         </DialogDescription>
         <div className="mt-6 flex w-full gap-2">

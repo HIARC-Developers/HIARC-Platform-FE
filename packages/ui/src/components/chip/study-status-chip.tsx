@@ -8,7 +8,8 @@ const studyStatusChipVariants = cva(
   cn(
     'inline-flex items-center leading-none px-2 py-1 rounded-lg',
     'select-none',
-    'text-xs font-normal'
+    'text-xs font-normal',
+    'whitespace-nowrap'
   ),
   {
     variants: {

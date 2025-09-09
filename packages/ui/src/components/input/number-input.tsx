@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { cn } from '../../lib/utils';
 
 interface NumberInputProps {
@@ -19,6 +19,17 @@ export const NumberInput: React.FC<NumberInputProps> = ({
   className,
 }) => {
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
+
+  // autoFocus가 false일 때 포커스 방지
+  useEffect(() => {
+    if (!autoFocus) {
+      // 다이얼로그가 열릴 때 첫 번째 input에 포커스가 가는 것을 방지
+      const firstInput = inputsRef.current[0];
+      if (firstInput && document.activeElement === firstInput) {
+        firstInput.blur();
+      }
+    }
+  }, [autoFocus]);
 
   const handleChange = (idx: number, event: React.ChangeEvent<HTMLInputElement>): void => {
     const val = event.target.value.replace(/[^0-9]/g, '');
@@ -66,7 +77,8 @@ export const NumberInput: React.FC<NumberInputProps> = ({
           onChange={(event) => handleChange(idx, event)}
           onKeyDown={(event) => handleKeyDown(idx, event)}
           disabled={disabled}
-          autoFocus={idx === 0 && autoFocus}
+          {...(autoFocus && idx === 0 ? { autoFocus: true } : {})}
+          tabIndex={autoFocus ? undefined : -1}
           className={cn(
             'h-14 w-12',
             'rounded-lg border border-gray-200 bg-white',

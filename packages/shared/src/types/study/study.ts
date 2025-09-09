@@ -3,6 +3,7 @@ import { DateUtil } from '../../util/date-util';
 export interface Study {
   studyId?: number | null;
   name?: string | null;
+  isGroupStudy?: boolean | null;
   studyStatus?: 'PREPARING' | 'PRE_OPEN' | 'RECRUITING' | 'IN_PROGRESS' | 'CLOSED' | null;
   introduction?: string | null;
   lang?: string | null;
@@ -37,6 +38,7 @@ export const Study = {
     const study = {
       studyId: (data.studyId as number) || null,
       name: (data.name as string) || null,
+      isGroupStudy: (data.isGroupStudy as boolean) || null,
       studyStatus:
         (data.studyStatus as 'PREPARING' | 'PRE_OPEN' | 'RECRUITING' | 'IN_PROGRESS' | 'CLOSED') ||
         null,

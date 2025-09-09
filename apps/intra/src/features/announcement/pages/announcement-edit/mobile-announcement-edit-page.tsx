@@ -1,22 +1,12 @@
 'use client';
 
 import { AnnouncementWrite } from '@hiarc-platform/ui';
-import { Divider, LoadingDots } from '@hiarc-platform/ui';
-import { Title, Label } from '@hiarc-platform/ui';
+import { LoadingDots } from '@hiarc-platform/ui';
 import { useAnnouncementEditPageState } from '../../hooks/page/use-announcement-edit-page-state';
 
 export function MobileAnnouncementEditPage(): React.ReactElement {
-  const {
-    id,
-    studyId,
-    announcement,
-    studyOptions,
-    isLoading,
-    error,
-    isLecture,
-    pageTitle,
-    handleSubmit,
-  } = useAnnouncementEditPageState();
+  const { id, studyId, announcement, studyOptions, isLoading, error, handleSubmit } =
+    useAnnouncementEditPageState();
 
   // 로딩 중일 때
   if (isLoading) {
@@ -38,22 +28,6 @@ export function MobileAnnouncementEditPage(): React.ReactElement {
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <div className="flex w-full flex-col gap-3">
-        <Title size="sm" weight="bold">
-          {pageTitle}
-        </Title>
-        {isLecture && (
-          <div className="flex flex-col gap-2">
-            <Label size="md" className="text-gray-600">
-              스터디: {announcement?.studyName}
-            </Label>
-            <Label size="md" className="text-gray-600">
-              회차: {announcement?.lectureRound}회차
-            </Label>
-          </div>
-        )}
-        <Divider variant="horizontal" size="full" />
-      </div>
       <AnnouncementWrite
         announcementId={id}
         initialStudyId={studyId}

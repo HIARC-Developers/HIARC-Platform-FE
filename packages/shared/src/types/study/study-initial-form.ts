@@ -1,6 +1,7 @@
 export interface StudyInitialForm {
   name?: string;
   bojHandle?: string;
+  isGroupStudy?: boolean;
   semesterId?: number;
   startDate?: string | null;
   endDate?: string | null;
@@ -21,6 +22,7 @@ export const StudyInitialForm = {
     return {
       name: (data.name as string) || '',
       bojHandle: (data.bojHandle as string) || '',
+      isGroupStudy: (data.isGroupStudy as boolean) || false,
       semesterId: data.semesterId as number,
       startDate: (data.startDate as string) || null,
       endDate: (data.endDate as string) || null,

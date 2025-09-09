@@ -49,6 +49,7 @@ export function DesktopStudyDetailPage(): React.ReactElement {
         isAdmin={studyData?.isInstructor ?? false}
         studyId={studyId}
         semesterId={studyData?.semesterId ?? 1}
+        isGroupStudy={studyData?.isGroupStudy ?? false}
       />
       <div className="mt-8 flex items-center justify-center gap-4">
         <Button variant="line" className="w-[186px]" onClick={handleListClick}>

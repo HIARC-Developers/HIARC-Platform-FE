@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import LayOut from '../ui/Layout';
+import LayOut from '../util/Layout';
 import styled, { keyframes } from 'styled-components';
-import StreakEntity from '../components/StreakEntity';
-import { fetchStreakData, StreakData } from '../api/StreakApi';
-import Color from '../ui/Color';
+import NewStreakEntity from '../block/streak/NewStreakEntity';
+import { fetchStreakData, Member, PageableResponse, PaginationParams } from '../api/StreakApi';
+import Color from '../util/Color';
 
 const fadeIn = keyframes`
   from {
@@ -73,36 +73,55 @@ const PageNumber = styled.div`
 `;
 
 const StreakPage = () => {
-  const [streakData, setStreakData] = useState<StreakData[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [pageableData, setPageableData] = useState<PageableResponse | null>(null);
+  const [loading, setLoading] = useState(false); // Mock 데이터이므로 로딩 false
   const [error, setError] = useState<string | null>(null);
-  const [seasonTotal, setSeasonTotal] = useState<number>(0);
-
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
 
+  // Mock 데이터
+  const mockData: PageableResponse = {
+    totalPages: 3,
+    totalElements: 25,
+    size: 10,
+    content: Array.from({ length: 10 }, (_, index) => ({
+      memberId: index + 1,
+      name: `User${index + 1}`,
+      bojHandle: `handle${index + 1}`,
+      tier: 'GOLD',
+      streak: {
+        today: '2025-09-07',
+        streakData: [
+          { date: '2025-09-07', value: true },
+          { date: '2025-09-06', value: true },
+          { date: '2025-09-05', value: false },
+        ],
+        streakStartAt: '2025-09-01',
+        currentTotalStreak: 30 + index,
+        currentSeasonStreak: 15 + index,
+      },
+    })),
+    number: currentPage,
+    sort: { empty: false, sorted: true, unsorted: false },
+    first: currentPage === 0,
+    last: currentPage === 2,
+    numberOfElements: 10,
+    pageable: {
+      offset: currentPage * 10,
+      sort: { empty: false, sorted: true, unsorted: false },
+      pageNumber: currentPage,
+      pageSize: 10,
+      paged: true,
+      unpaged: false,
+    },
+    empty: false,
+  };
+
   useEffect(() => {
-    const loadStreakData = async () => {
-      setLoading(true);
-      setError(null);
-      const data = await fetchStreakData();
-      if (data) {
-        setStreakData(data.streakList);
-        setSeasonTotal(data.seasonTotal);
-      } else {
-        setError('데이터를 불러오는 데 실패했습니다.');
-      }
-      setLoading(false);
-    };
-
-    loadStreakData();
-  }, []);
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = streakData.slice(indexOfFirstItem, indexOfLastItem);
-
-  const totalPages = Math.ceil(streakData.length / itemsPerPage);
+    // Mock 데이터 설정
+    setPageableData(mockData);
+    setError(null);
+  }, [currentPage]);
 
   return (
     <LayOut>
@@ -116,17 +135,8 @@ const StreakPage = () => {
           <>
             <AnimatedContainer $delay="0.2s">
               <MainWrapper>
-                {currentItems.map((streak, index) => (
-                  <StreakEntity
-                    key={index}
-                    handle={streak.handle}
-                    tier={streak.tier}
-                    div={streak.div}
-                    seasonStreak={streak.seasonStreak}
-                    seasonTotal={seasonTotal}
-                    totalStreak={streak.totalStreak}
-                    startDate={streak.startDate}
-                  />
+                {pageableData?.content.map((member) => (
+                  <NewStreakEntity key={member.memberId} />
                 ))}
               </MainWrapper>
             </AnimatedContainer>
@@ -134,16 +144,16 @@ const StreakPage = () => {
             <PaginationWrapper>
               <PageButton
                 onClick={() => setCurrentPage((prev) => prev - 1)}
-                disabled={currentPage === 1}
+                disabled={pageableData?.first || currentPage === 0}
               >
                 이전
               </PageButton>
               <PageNumber>
-                {currentPage} / {totalPages}
+                {currentPage + 1} / {pageableData?.totalPages || 1}
               </PageNumber>
               <PageButton
                 onClick={() => setCurrentPage((prev) => prev + 1)}
-                disabled={currentPage === totalPages}
+                disabled={pageableData?.last || false}
               >
                 다음
               </PageButton>

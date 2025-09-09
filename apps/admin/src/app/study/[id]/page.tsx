@@ -57,6 +57,7 @@ export default function StudyPage(): React.ReactElement {
         isAdmin={true}
         studyName={studyData?.name ?? ''}
         studyId={studyId}
+        isGroupStudy={studyData?.isGroupStudy ?? false}
       />
       <div className="mt-8 flex items-center justify-center gap-4">
         <Button variant="line" className="w-[186px]" onClick={() => router.push('/study')}>

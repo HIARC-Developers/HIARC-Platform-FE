@@ -3,6 +3,7 @@
 import { CreateAssignmentDialog } from '@hiarc-platform/ui';
 import { useCreateAssignment } from '../../hooks/study-instructor/mutation/use-create-assignment';
 import { useAssignment } from '../../hooks/study-member/query/use-assignment';
+import { useCheckAssignment } from '../../hooks/study-instructor/mutation/use-check-assignment';
 
 interface CreateAssignmentDialogWrapperProps {
   studyId: number;
@@ -19,6 +20,7 @@ export function CreateAssignmentDialogWrapper({
 }: CreateAssignmentDialogWrapperProps): React.ReactElement {
   const assignmentQuery = useAssignment(studyId, lectureId);
   const { mutate: createAssignment } = useCreateAssignment();
+  const { mutate: checkAssignment } = useCheckAssignment();
 
   return (
     <CreateAssignmentDialog
@@ -28,6 +30,9 @@ export function CreateAssignmentDialogWrapper({
       error={assignmentQuery.error}
       fetchAssignment={() => assignmentQuery.refetch()}
       onComplete={() => {}}
+      onCheckAssignment={(studyId, round) => {
+        checkAssignment({ studyId, round });
+      }}
       onCreateAssignment={(data) => {
         createAssignment({
           studyId,

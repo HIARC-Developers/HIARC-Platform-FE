@@ -1,7 +1,7 @@
 import HitingBox from '../components/HitingBox';
 import styled from 'styled-components';
 import { useRef, useState, useEffect } from 'react';
-import Color from '../ui/Color';
+import Color from '../util/Color';
 
 const Wrapper = styled.div`
   width: 100%;

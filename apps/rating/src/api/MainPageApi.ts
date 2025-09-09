@@ -1,22 +1,18 @@
 import apiClient from './ApiClient';
-import { HitingDataState } from '../store/Atom';
-
-export interface ApiResponse {
-  data: HitingDataState;
-}
+import { HitingDataState } from '../types/DataType';
 
 export const fetchHitingData = async (): Promise<HitingDataState> => {
   try {
-    const response = await apiClient.get<ApiResponse>('/');
+    const response = await apiClient.get<HitingDataState>('/rating');
     console.log(' API 응답 데이터:', response.data);
 
     return (
-      response.data.data || {
-        div1List: [],
-        div2List: [],
-        div3List: [],
-        streakList: [],
-        eventList: [],
+      response.data || {
+        div1Ranking: [],
+        div2Ranking: [],
+        div3Ranking: [],
+        streakRanking: [],
+        eventRanking: [],
       }
     );
   } catch (error) {

@@ -1,4 +1,4 @@
-import { AdminExplain } from '../../ui/AdminExplain';
+import { AdminExplain } from '../../util/AdminExplain';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`

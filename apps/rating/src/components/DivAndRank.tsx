@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Color from '../ui/Color';
+import Color from '../util/Color';
 const Button = styled.div`
   background-color: ${Color.primary};
   width: 62px;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import LayOut from '../ui/Layout';
+import LayOut from '../util/Layout';
 import styled from 'styled-components';
 import { sendAdminLogin } from '../api/AdminLogin';
 import { useNavigate } from 'react-router-dom';

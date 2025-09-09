@@ -1,7 +1,7 @@
-import LayOut from '../ui/Layout';
+import LayOut from '../util/Layout';
 import styled from 'styled-components';
 import InfoEntity from '../atoms/InfoEntity';
-import Color from '../ui/Color';
+import Color from '../util/Color';
 import { DinamicStreakBox } from '../block/streak/DinamicStreakBox';
 import StreakInformation from '../block/streak/StreakInformation';
 

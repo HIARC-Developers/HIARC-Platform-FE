@@ -1,16 +1,47 @@
 'use client';
 
+import { useState } from 'react';
 import { Title, Button, DialogUtil } from '@hiarc-platform/ui';
 import { CompetitionTable } from '../../components/award-table';
 import { CompetitionSearchButtons } from '../../components/competition-bar/competition-search-buttons';
 import { useAwardList } from '../../hooks/use-award-list';
 import { AddAwardDialog } from '../../components/add-award-modal';
+import { AwardQueryParams } from '../../types/request/award-query-params';
 
 export function AwardListPage(): React.ReactElement {
-  const { data } = useAwardList();
+  const [searchParams, setSearchParams] = useState<AwardQueryParams>({
+    page: 0,
+    size: 10,
+  });
+  const { data } = useAwardList(searchParams);
 
   const handleAddAward = (): void => {
     DialogUtil.showComponent(<AddAwardDialog />);
+  };
+
+  const handleSearch = (params: {
+    organization: string;
+    awardName: string;
+    memberName: string;
+  }): void => {
+    setSearchParams({
+      organization: params.organization || undefined,
+      awardName: params.awardName || undefined,
+      memberName: params.memberName || undefined,
+      page: 0,
+      size: 10,
+    });
+  };
+
+  const handleReset = (): void => {
+    setSearchParams({ page: 0, size: 10 });
+  };
+
+  const handlePageChange = (page: number): void => {
+    setSearchParams(prev => ({
+      ...prev,
+      page,
+    }));
   };
 
   return (
@@ -23,8 +54,8 @@ export function AwardListPage(): React.ReactElement {
           추가하기
         </Button>
       </div>
-      <CompetitionSearchButtons />
-      <CompetitionTable className="mt-6" data={data} />
+      <CompetitionSearchButtons onSearch={handleSearch} onReset={handleReset} />
+      <CompetitionTable className="mt-6" data={data} onPageChange={handlePageChange} />
     </div>
   );
 }

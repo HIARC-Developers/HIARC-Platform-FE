@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { cn } from '../../lib/utils';
 import { Button } from '../button';
 import { IconButton } from '../icon-button';
 import { Label } from '../label/label';
+import { Popover, PopoverContent, PopoverTrigger } from '../popover';
 import { Lecture } from '@hiarc-platform/shared';
 
 function WeekChip({ week }: { week: number }): React.ReactElement {
@@ -79,7 +79,7 @@ function DoAssignmentButton({
 }): React.ReactElement {
   return (
     <Button variant="fill_light" size="xs" onClick={onClick} disabled={disabled}>
-      과제하기
+      과제 하기
     </Button>
   );
 }
@@ -132,81 +132,41 @@ function MobileLectureListItem({
   onEditClick,
   onDeleteClick,
 }: LectureCardProps): React.ReactElement {
-  const [isAttendanceCreated, setIsAttendanceCreated] = useState(
-    lecture?.isAttendanceCodeExist || false
-  );
-  const [isAssignmentCreated, setIsAssignmentCreated] = useState(
-    lecture?.isAssignmentExist || false
-  );
-  const [attendanceCompleted, setAttendanceCompleted] = useState(
-    lecture?.isAttendanceCompleted || false
-  );
-  const [assignmentCompleted, setAssignmentCompleted] = useState(
-    lecture?.isAssignmentCompleted || false
-  );
+  const isAttendanceCreated = lecture?.isAttendanceCodeExist || false;
+  const isAssignmentCreated = lecture?.isAssignmentExist || false;
+  const attendanceCompleted = lecture?.isAttendanceCompleted || false;
+  const assignmentCompleted = lecture?.isAssignmentCompleted || false;
 
-  const buttons = [];
+  // 출석 관련 버튼만 상단에 배치 (Student일 때만)
+  const attendanceButtons = [];
+  // 과제 관련 버튼은 하단에 배치 (Student일 때만)
+  const assignmentButton = [];
 
-  if (isAdmin) {
-    // Admin: 출석번호 생성, 과제 생성/수정
-    if (!isAttendanceCreated) {
-      buttons.push(
-        <CreateCodeButton
-          key="attendance"
-          onClick={() => {
-            onCreateAttendanceClick?.(() => setIsAttendanceCreated(true));
-          }}
-        />
-      );
-    } else {
-      buttons.push(
-        <ShowCodeButton key="attendance-show" onClick={() => onShowAttendanceClick?.()} />
-      );
-    }
-
-    // 과제 관련 버튼
-    if (!isAssignmentCreated) {
-      buttons.push(
-        <CreateAssignmentButton
-          key="assignment"
-          onClick={() => {
-            onCreateAssignmentClick?.(() => setIsAssignmentCreated(true));
-          }}
-        />
-      );
-    } else {
-      buttons.push(
-        <ShowAssignmentButton key="assignment-show" onClick={() => onShowAssignmentClick?.()} />
-      );
-    }
-  } else if (isStudent) {
-    // Student: 출석번호 입력, 과제 확인
-    // 출석 관련 버튼 - 항상 표시
+  if (isStudent) {
+    // 출석 관련 버튼
     if (attendanceCompleted === true) {
-      buttons.push(<AttendanceDoneButton key="attendance-done" />);
+      attendanceButtons.push(<AttendanceDoneButton key="attendance-done" />);
     } else {
-      // attendanceCompleted가 false이거나 null인 경우
-      buttons.push(
+      attendanceButtons.push(
         <AttendanceCheckButton
           key="attendance-check"
           onClick={() => {
-            onAttendanceCheckClick?.(() => setAttendanceCompleted(true));
+            onAttendanceCheckClick?.(() => {});
           }}
           disabled={!isAttendanceCreated}
         />
       );
     }
 
-    // 과제 관련 버튼 - 항상 표시
+    // 과제 관련 버튼
     if (assignmentCompleted === true) {
-      buttons.push(<AssignmentDoneButton key="assignment-done" />);
+      assignmentButton.push(<AssignmentDoneButton key="assignment-done" />);
     } else {
-      // assignmentCompleted가 false이거나 null인 경우
-      buttons.push(
+      assignmentButton.push(
         <DoAssignmentButton
           key="assignment-do"
           onClick={() => {
-            onDoAssignmentClick?.(() => setAssignmentCompleted(true));
+            onDoAssignmentClick?.(() => {});
           }}
           disabled={!isAssignmentCreated}
         />
@@ -215,52 +175,145 @@ function MobileLectureListItem({
   }
   // else: isStudent === false && isAdmin === false -> 아무 버튼도 표시하지 않음
 
+  const handleMoreClick = (event: React.MouseEvent): void => {
+    event.stopPropagation();
+  };
+
+  const renderAdminMenuItems = () => {
+    const menuItems = [];
+
+    // 출석 관련 메뉴
+    if (!isAttendanceCreated) {
+      menuItems.push(
+        <button
+          key="create-attendance"
+          className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+          onClick={(e) => {
+            e.stopPropagation();
+            onCreateAttendanceClick?.(() => {});
+          }}
+        >
+          <Label className="cursor-pointer">출석 생성</Label>
+        </button>
+      );
+    } else {
+      menuItems.push(
+        <button
+          key="show-attendance"
+          className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+          onClick={(e) => {
+            e.stopPropagation();
+            onShowAttendanceClick?.();
+          }}
+        >
+          <Label className="cursor-pointer">번호 확인</Label>
+        </button>
+      );
+    }
+
+    // 과제 관련 메뉴
+    if (!isAssignmentCreated) {
+      menuItems.push(
+        <button
+          key="create-assignment"
+          className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+          onClick={(e) => {
+            e.stopPropagation();
+            onCreateAssignmentClick?.(() => {});
+          }}
+        >
+          <Label className="cursor-pointer">과제 등록</Label>
+        </button>
+      );
+    } else {
+      menuItems.push(
+        <button
+          key="show-assignment"
+          className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+          onClick={(e) => {
+            e.stopPropagation();
+            onShowAssignmentClick?.();
+          }}
+        >
+          <Label className="cursor-pointer">과제 확인</Label>
+        </button>
+      );
+    }
+
+    // 수정, 삭제 메뉴
+    menuItems.push(
+      <button
+        key="edit"
+        className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+        onClick={(e) => {
+          e.stopPropagation();
+          onEditClick?.();
+        }}
+      >
+        <Label className="cursor-pointer">수정</Label>
+      </button>
+    );
+
+    menuItems.push(
+      <button
+        key="delete"
+        className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+        onClick={(e) => {
+          e.stopPropagation();
+          onDeleteClick?.();
+        }}
+      >
+        <Label className="cursor-pointer">삭제</Label>
+      </button>
+    );
+
+    return menuItems;
+  };
+
   return (
     <div className="flex w-full flex-col gap-2 rounded-sm border border-gray-200 px-4 py-3">
       <div className=" flex items-center justify-between">
         <WeekChip week={lecture?.round || 0} />
         <div className="flex items-center gap-2">
-          <Label size="md" className="text-gray-700">
+          <Label size={lecture?.place ? 'md' : 'sm'} className="text-gray-700">
             {lecture?.place || '강의실 정보 없음'}
           </Label>
-          <div className="flex gap-2">{buttons}</div>
+          {isStudent && <div className="flex gap-2">{attendanceButtons}</div>}
+          {isAdmin && (
+            <Popover>
+              <PopoverTrigger asChild>
+                <IconButton iconSrc="/shared-assets/More.svg" size="sm" onClick={handleMoreClick} />
+              </PopoverTrigger>
+              <PopoverContent className="w-32 p-1" align="end">
+                <div className="flex flex-col">{renderAdminMenuItems()}</div>
+              </PopoverContent>
+            </Popover>
+          )}
         </div>
       </div>
       <div className="flex items-center justify-between">
         <Label
           size="lg"
           className={cn(
-            'cursor-pointer hover:opacity-70',
-            isStudent && 'underline decoration-gray-900 decoration-1 underline-offset-2'
+            (isStudent || isAdmin) && 'cursor-pointer hover:opacity-70',
+            (isStudent || isAdmin) &&
+              'underline decoration-gray-900 decoration-1 underline-offset-2'
           )}
-          onClick={onTitleClick}
+          onClick={isStudent || isAdmin ? onTitleClick : undefined}
         >
           {lecture?.title || '강의 제목 없음'}
         </Label>
-        {isAdmin && (
-          <div className="ml-4 flex gap-4">
-            <IconButton iconSrc="/shared-assets/Edit.svg" onClick={() => onEditClick?.()} />
-            <DeleteButton onClick={() => onDeleteClick?.()} />
-          </div>
-        )}
+        {isStudent && <div className="flex gap-2">{assignmentButton}</div>}
       </div>
     </div>
   );
 }
 
 function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement {
-  const [isAttendanceCreated, setIsAttendanceCreated] = useState(
-    props.lecture?.isAttendanceCodeExist || false
-  );
-  const [isAssignmentCreated, setIsAssignmentCreated] = useState(
-    props.lecture?.isAssignmentExist || false
-  );
-  const [attendanceCompleted, setAttendanceCompleted] = useState(
-    props.lecture?.isAttendanceCompleted
-  );
-  const [assignmentCompleted, setAssignmentCompleted] = useState(
-    props.lecture?.isAssignmentCompleted
-  );
+  const isAttendanceCreated = props.lecture?.isAttendanceCodeExist || false;
+  const isAssignmentCreated = props.lecture?.isAssignmentExist || false;
+  const attendanceCompleted = props.lecture?.isAttendanceCompleted;
+  const assignmentCompleted = props.lecture?.isAssignmentCompleted;
 
   const {
     lecture,
@@ -274,74 +327,137 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
     onDeleteClick,
   } = props;
 
-  const buttons = [];
+  // 출석 관련 버튼만 메인 영역에 배치 (Student일 때만)
+  const attendanceButtons = [];
+  // 과제 관련 버튼은 제목 옆에 배치 (Student일 때만)
+  const assignmentButton = [];
 
-  if (props.isAdmin) {
-    // Admin: 출석번호 생성, 과제 생성/수정
-    if (!isAttendanceCreated) {
-      buttons.push(
-        <CreateCodeButton
-          key="attendance"
-          onClick={() => {
-            onCreateAttendanceClick?.(() => setIsAttendanceCreated(true));
-          }}
-        />
-      );
-    } else {
-      buttons.push(
-        <ShowCodeButton key="attendance-show" onClick={() => onShowAttendanceClick?.()} />
-      );
-    }
-
-    // 과제 관련 버튼
-    if (!isAssignmentCreated) {
-      buttons.push(
-        <CreateAssignmentButton
-          key="assignment"
-          onClick={() => {
-            onCreateAssignmentClick?.(() => setIsAssignmentCreated(true));
-          }}
-        />
-      );
-    } else {
-      buttons.push(
-        <ShowAssignmentButton key="assignment-show" onClick={() => onShowAssignmentClick?.()} />
-      );
-    }
-  } else if (props.isStudent) {
-    // Student: 출석번호 입력, 과제 확인
-    // 출석 관련 버튼 - 항상 표시
+  if (props.isStudent) {
+    // 출석 관련 버튼
     if (attendanceCompleted === true) {
-      buttons.push(<AttendanceDoneButton key="attendance-done" />);
+      attendanceButtons.push(<AttendanceDoneButton key="attendance-done" />);
     } else {
-      // attendanceCompleted가 false이거나 null인 경우
-      buttons.push(
+      attendanceButtons.push(
         <AttendanceCheckButton
           key="attendance-check"
           onClick={() => {
-            onAttendanceCheckClick?.(() => setAttendanceCompleted(true));
+            onAttendanceCheckClick?.(() => {});
           }}
           disabled={!isAttendanceCreated}
         />
       );
     }
 
-    // 과제 관련 버튼 - 항상 표시
+    // 과제 관련 버튼
     if (assignmentCompleted === true) {
-      buttons.push(<AssignmentDoneButton key="assignment-done" />);
+      assignmentButton.push(<AssignmentDoneButton key="assignment-done" />);
     } else {
-      // assignmentCompleted가 false이거나 null인 경우
-      buttons.push(
+      assignmentButton.push(
         <DoAssignmentButton
           key="assignment-do"
           onClick={() => {
-            onDoAssignmentClick?.(() => setAssignmentCompleted(true));
+            onDoAssignmentClick?.(() => {});
           }}
           disabled={!isAssignmentCreated}
         />
       );
     }
   }
+
+  const handleMoreClick = (event: React.MouseEvent): void => {
+    event.stopPropagation();
+  };
+
+  const renderAdminMenuItems = () => {
+    const menuItems = [];
+
+    // 출석 관련 메뉴
+    if (!isAttendanceCreated) {
+      menuItems.push(
+        <button
+          key="create-attendance"
+          className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+          onClick={(e) => {
+            e.stopPropagation();
+            onCreateAttendanceClick?.(() => {});
+          }}
+        >
+          <Label className="cursor-pointer">출석 생성</Label>
+        </button>
+      );
+    } else {
+      menuItems.push(
+        <button
+          key="show-attendance"
+          className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+          onClick={(e) => {
+            e.stopPropagation();
+            onShowAttendanceClick?.();
+          }}
+        >
+          <Label className="cursor-pointer">번호 확인</Label>
+        </button>
+      );
+    }
+
+    // 과제 관련 메뉴
+    if (!isAssignmentCreated) {
+      menuItems.push(
+        <button
+          key="create-assignment"
+          className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+          onClick={(e) => {
+            e.stopPropagation();
+            onCreateAssignmentClick?.(() => {});
+          }}
+        >
+          <Label className="cursor-pointer">과제 등록</Label>
+        </button>
+      );
+    } else {
+      menuItems.push(
+        <button
+          key="show-assignment"
+          className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+          onClick={(e) => {
+            e.stopPropagation();
+            onShowAssignmentClick?.();
+          }}
+        >
+          <Label className="cursor-pointer">과제 확인</Label>
+        </button>
+      );
+    }
+
+    // 수정, 삭제 메뉴
+    menuItems.push(
+      <button
+        key="edit"
+        className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+        onClick={(e) => {
+          e.stopPropagation();
+          onEditClick?.();
+        }}
+      >
+        <Label className="cursor-pointer">수정</Label>
+      </button>
+    );
+
+    menuItems.push(
+      <button
+        key="delete"
+        className="mx-1 my-1 rounded-sm px-3 py-2 text-left transition-all duration-200 hover:bg-gray-100"
+        onClick={(e) => {
+          e.stopPropagation();
+          onDeleteClick?.();
+        }}
+      >
+        <Label className="cursor-pointer">삭제</Label>
+      </button>
+    );
+
+    return menuItems;
+  };
   // else: isStudent === false && isAdmin === false -> 아무 버튼도 표시하지 않음
 
   return (
@@ -352,28 +468,58 @@ function DesktopLectureCardListItem(props: LectureCardProps): React.ReactElement
         'leading-normal'
       )}
     >
-      <div className="flex gap-[13px]">
+      <div className="flex items-center gap-[13px]">
         <WeekChip week={lecture?.round || 0} />
         <Label
           size="lg"
           className={cn(
-            props.isStudent &&
+            (props.isStudent || props.isAdmin) &&
               'cursor-pointer underline decoration-gray-900 decoration-1 underline-offset-2 hover:opacity-70'
           )}
-          onClick={props.onTitleClick}
+          onClick={props.isStudent || props.isAdmin ? props.onTitleClick : undefined}
         >
           {lecture?.title || '강의 제목 없음'}
         </Label>
       </div>
       <div className="mr-4 flex">
         <div className="flex items-center gap-2">
-          <div className="flex gap-2">{buttons}</div>
-          <Label size="md" className="w-[80px] text-right text-gray-700">
+          {props.isStudent && (
+            <>
+              <div className="flex gap-2">{attendanceButtons}</div>
+              <div className="flex gap-2">{assignmentButton}</div>
+            </>
+          )}
+          {props.isAdmin && (
+            <>
+              {/* 출석 관련 버튼 */}
+              {!isAttendanceCreated ? (
+                <CreateCodeButton
+                  onClick={() => {
+                    onCreateAttendanceClick?.(() => {});
+                  }}
+                />
+              ) : (
+                <ShowCodeButton onClick={() => onShowAttendanceClick?.()} />
+              )}
+
+              {/* 과제 관련 버튼 */}
+              {!isAssignmentCreated ? (
+                <CreateAssignmentButton
+                  onClick={() => {
+                    onCreateAssignmentClick?.(() => {});
+                  }}
+                />
+              ) : (
+                <ShowAssignmentButton onClick={() => onShowAssignmentClick?.()} />
+              )}
+            </>
+          )}
+          <Label size={lecture?.place ? 'md' : 'sm'} className="w-[80px] text-right text-gray-700">
             {lecture?.place || '강의실 정보 없음'}
           </Label>
         </div>
         {props.isAdmin && (
-          <div className="ml-4 flex gap-4">
+          <div className="ml-2 flex gap-2">
             <IconButton iconSrc="/shared-assets/Edit.svg" onClick={() => onEditClick?.()} />
             <DeleteButton onClick={() => onDeleteClick?.()} />
           </div>

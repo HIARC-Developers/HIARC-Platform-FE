@@ -7,8 +7,8 @@ interface FooterProps {
 
 export default function Footer({ id }: FooterProps): React.ReactElement {
   return (
-    <footer className="w-full border-t border-gray-200 px-5 py-4" id={id}>
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center justify-between gap-4 md:flex-row">
+    <footer className="w-full border-t border-gray-200" id={id}>
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center justify-between gap-4 px-5 py-4 md:flex-row">
         <div className="flex items-center gap-2 sm:text-left">
           <Label size="lg" weight="bold">
             HI-ARC 하이아크

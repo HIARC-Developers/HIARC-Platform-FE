@@ -3,6 +3,8 @@ import { useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-
 import { Announcement } from '@hiarc-platform/shared';
 import { CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { announcementApi } from '@/features/announcement/api/announcement';
+import { DialogUtil } from '@hiarc-platform/ui';
+import { useRouter } from 'next/navigation';
 
 interface CreateStudyAnnouncementParams {
   studyId: number;
@@ -18,6 +20,7 @@ export default function useCreateStudyAnnouncement(): UseMutationResult<
   unknown
 > {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const mutation = useMutation({
     mutationFn: (data: MutationInput) => {
@@ -28,15 +31,13 @@ export default function useCreateStudyAnnouncement(): UseMutationResult<
       }
     },
     onSuccess: (newAnnouncement, variables) => {
-      console.log('[HOOK] useCreateStudyAnnouncement 성공:', newAnnouncement);
-
       if ('studyId' in variables && 'announcementData' in variables) {
         queryClient.invalidateQueries({ queryKey: ['studies', { studyId: variables.studyId }] });
       }
       queryClient.invalidateQueries({ queryKey: ['announcements'] });
-    },
-    onError: (error) => {
-      console.error('[HOOK] useCreateStudyAnnouncement 에러:', error);
+      DialogUtil.showSuccess('공지사항이 성공적으로 생성되었습니다.', () => {
+        router.back();
+      });
     },
   });
 

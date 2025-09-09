@@ -180,6 +180,14 @@ export function useAnnouncementForm({
       }
     }
 
+    // 회차별 공지가 선택된 경우 회차 입력 검증
+    if (formData.announcementType === 'STUDY' && formData.studyAnnounceType === '회차별 공지') {
+      if (!formData.lectureRound) {
+        DialogUtil.showError('회차별 공지를 선택한 경우 회차를 입력해주세요.');
+        return;
+      }
+    }
+
     // 최종 데이터 정리
     const requestData: CreateAnnouncementForm = {
       title: formData.title.trim(),

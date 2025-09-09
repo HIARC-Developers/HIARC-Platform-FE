@@ -1,6 +1,7 @@
 'use client';
-import { Button, LabeledInput, LabeledSelectButton } from '@hiarc-platform/ui';
+import { Button, LabeledInput, LabeledSelectButton, DialogUtil } from '@hiarc-platform/ui';
 import { useState } from 'react';
+import { useUpdateAwardHandle } from '../../hooks/use-validate-award-handle';
 
 interface AwardRecordFormProps {
   id: number;
@@ -17,12 +18,13 @@ export function AwardRecordForm({
   const [handle, setHandle] = useState<string>('');
   const [awardDetail, setAwardDetail] = useState<string>('');
 
+  const validateHandleMutation = useUpdateAwardHandle();
+
   // Notify parent component when data changes
   const handleDataChange = (newHandle: string, newAwardDetail: string): void => {
     setHandle(newHandle);
     setAwardDetail(newAwardDetail);
     if (onDataChange) {
-      // For participation type, send '참여'; for award type, send the actual detail
       const finalAwardDetail = recordType === 'participation' ? '참여' : newAwardDetail;
       onDataChange({ handle: newHandle, awardDetail: finalAwardDetail });
     }
@@ -32,6 +34,28 @@ export function AwardRecordForm({
     { label: '참여', value: 'participation' },
     { label: '수상', value: 'award' },
   ];
+
+  const handleValidateHandle = async (): Promise<void> => {
+    if (!handle.trim()) {
+      DialogUtil.showError('핸들명을 입력해주세요.');
+      return;
+    }
+
+    try {
+      await validateHandleMutation.mutateAsync({ bojHandle: handle.trim() });
+      setOauth(true);
+      // Set default record type to participation after successful validation
+      setRecordType('participation');
+      setAwardDetail('');
+      // Notify parent with default participation data
+      if (onDataChange) {
+        onDataChange({ handle: handle.trim(), awardDetail: '참여' });
+      }
+    } catch (error) {
+      console.error('핸들 검증 실패:', error);
+      // Error handling is done in the mutation hook
+    }
+  };
 
   return (
     <div className="flex w-full gap-3">
@@ -62,11 +86,10 @@ export function AwardRecordForm({
             <Button
               size="md"
               className="w-[118px]"
-              onClick={() => {
-                setOauth(!oauth);
-              }}
+              onClick={handleValidateHandle}
+              disabled={!handle.trim() || validateHandleMutation.isPending}
             >
-              인증하기
+              {validateHandleMutation.isPending ? '검증 중...' : '인증하기'}
             </Button>
           )}
         </div>

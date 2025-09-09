@@ -52,7 +52,7 @@ export function AttendanceCheckDialog({
             onChange={(value: string) => setInputValue(value)}
           />
         </div>
-        <DialogFooter className="mt-6">
+        <DialogFooter className="mt-6 flex flex-row gap-2">
           <DialogClose asChild>
             <Button variant="secondary" size="sm" className="w-full">
               취소

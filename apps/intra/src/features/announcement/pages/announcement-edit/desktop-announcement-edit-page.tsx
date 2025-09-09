@@ -1,8 +1,7 @@
 'use client';
 
-import { AnnouncementWrite } from '@hiarc-platform/ui';
-import { BackButton, Divider, LoadingDots } from '@hiarc-platform/ui';
-import { Title, Label } from '@hiarc-platform/ui';
+import { AnnouncementDesktopHeader, AnnouncementWrite } from '@hiarc-platform/ui';
+import { LoadingDots } from '@hiarc-platform/ui';
 import { useAnnouncementEditPageState } from '../../hooks/page/use-announcement-edit-page-state';
 
 export function DesktopAnnouncementEditPage(): React.ReactElement {
@@ -13,7 +12,6 @@ export function DesktopAnnouncementEditPage(): React.ReactElement {
     studyOptions,
     isLoading,
     error,
-    isLecture,
     pageTitle,
     handleSubmit,
     handleGoBack,
@@ -39,27 +37,7 @@ export function DesktopAnnouncementEditPage(): React.ReactElement {
 
   return (
     <div className="flex w-full flex-col">
-      <div className="flex w-full flex-col items-center gap-6">
-        <BackButton onClick={handleGoBack} />
-        <div className="flex w-full flex-col gap-2">
-          <div className="flex w-full items-center justify-between">
-            <Title size="sm" weight="bold">
-              {pageTitle}
-            </Title>
-          </div>
-          {isLecture && (
-            <div className="flex items-center gap-4">
-              <Label size="md" className="text-gray-600">
-                스터디: {announcement?.studyName}
-              </Label>
-              <Label size="md" className="text-gray-600">
-                회차: {announcement?.lectureRound}회차
-              </Label>
-            </div>
-          )}
-        </div>
-        <Divider variant="horizontal" size="full" />
-      </div>
+      <AnnouncementDesktopHeader title={pageTitle} onBackClick={handleGoBack} className="pb-6" />
       <AnnouncementWrite
         announcementId={id}
         initialStudyId={studyId}

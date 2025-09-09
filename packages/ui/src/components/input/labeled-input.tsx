@@ -11,6 +11,7 @@ interface LabeledInputProps extends Omit<React.ComponentProps<'input'>, 'onChang
   required?: boolean;
   error?: string;
   isError?: boolean;
+  autoFocus?: boolean;
   onChange?(value: string): void;
 }
 
@@ -23,6 +24,7 @@ function LabeledInput({
   isError = false,
   value,
   onChange,
+  autoFocus = false,
   ...props
 }: LabeledInputProps): React.ReactElement {
   const hasError = isError || Boolean(error);
@@ -40,6 +42,7 @@ function LabeledInput({
       <Input
         placeholder={placeholder}
         value={value}
+        autoFocus={autoFocus}
         onChange={(event) => onChange?.(event.target.value)}
         className={cn(
           'h-11 w-full',

@@ -116,9 +116,9 @@ export function AddAwardDialog({
         showBackground={showBackground}
       >
         <DialogHeader>
-          <DialogTitle className="w-full">학회원 모집 관리</DialogTitle>
+          <DialogTitle className="w-full">대회 추가하기</DialogTitle>
         </DialogHeader>
-        <DialogDescription className="mt-6 flex max-h-[400px] w-[482px] flex-col gap-6 overflow-y-auto px-1 py-1">
+        <DialogDescription className="mt-6 flex h-[500px] w-[482px] flex-col gap-6 overflow-y-auto px-1 py-1">
           <LabeledInput
             label="주최 단체명"
             placeholder="예) 현대모비스,카카오,홍익대학교"

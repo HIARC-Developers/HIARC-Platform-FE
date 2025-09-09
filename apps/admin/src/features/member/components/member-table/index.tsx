@@ -64,7 +64,11 @@ export function MemberTable({
 
       {pageableModel && onPageChange && (
         <div className="flex w-full justify-center">
-          <Pagination className="mt-8" pageableModel={pageableModel} onPageChange={onPageChange} />
+          <Pagination
+            className="mt-8"
+            pageableModel={pageableModel}
+            onPageChange={(page) => onPageChange(page - 1)}
+          />
         </div>
       )}
     </div>

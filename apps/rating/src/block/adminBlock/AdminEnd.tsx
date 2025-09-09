@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { AdminExplain } from '../../ui/AdminExplain';
+import { AdminExplain } from '../../util/AdminExplain';
 
-import Color from '../../ui/Color';
+import Color from '../../util/Color';
 import { resetAdminData } from '../../api/AdminApi';
 const Wrapper = styled.div`
   border-bottom: 1px solid black;

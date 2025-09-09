@@ -2,6 +2,12 @@ import Image from 'next/image';
 import { cn } from '../../lib/utils';
 import { Label } from '../label/label';
 
+interface RoundStatus {
+  round?: number | null;
+  attendanceCompleted?: boolean | null;
+  assignmentCompleted?: boolean | null;
+}
+
 function StyledCheckbox({
   checked,
   onClick,
@@ -27,21 +33,47 @@ function StyledCheckbox({
 }
 
 interface AttendanceTableProps {
-  attendance: boolean[];
-  assignment: boolean[];
   chunkSize?: number;
   className?: string;
+  editable?: boolean;
+  roundStatuses: RoundStatus[];
+  onValueChange?: (roundStatuses: RoundStatus[]) => void;
 }
 
 export function AttendanceTable({
-  attendance,
-  assignment,
   chunkSize = 8,
   className,
+  editable = false,
+  roundStatuses,
+  onValueChange,
 }: AttendanceTableProps): React.ReactElement {
-  const maxWeeks = Math.max(attendance.length, assignment.length);
-  const att = [...attendance, ...Array(Math.max(0, maxWeeks - attendance.length)).fill(false)];
-  const ass = [...assignment, ...Array(Math.max(0, maxWeeks - assignment.length)).fill(false)];
+  const maxWeeks = roundStatuses.length;
+  
+  // RoundStatus에서 boolean 배열로 변환
+  const att = roundStatuses.map(status => status.attendanceCompleted === true);
+  const ass = roundStatuses.map(status => status.assignmentCompleted === true);
+
+  const handleAttendanceChange = (index: number, checked: boolean): void => {
+    if (!editable || !onValueChange) return;
+
+    const newRoundStatuses = [...roundStatuses];
+    newRoundStatuses[index] = {
+      ...newRoundStatuses[index],
+      attendanceCompleted: checked,
+    };
+    onValueChange(newRoundStatuses);
+  };
+
+  const handleAssignmentChange = (index: number, checked: boolean): void => {
+    if (!editable || !onValueChange) return;
+
+    const newRoundStatuses = [...roundStatuses];
+    newRoundStatuses[index] = {
+      ...newRoundStatuses[index],
+      assignmentCompleted: checked,
+    };
+    onValueChange(newRoundStatuses);
+  };
 
   const numChunks = Math.ceil(maxWeeks / chunkSize);
   const getChunk = (arr: boolean[], idx: number): boolean[] => {
@@ -78,7 +110,9 @@ export function AttendanceTable({
                           key={idx}
                           className={'bg-gray-100 px-4 py-2.5 text-center align-middle'}
                         >
-                          {show ? <Label size="md">{`${weekNum + 1}주차`}</Label> : null}
+                          {show && roundStatuses[weekNum] ? (
+                            <Label size="md">{`${roundStatuses[weekNum].round}주차`}</Label>
+                          ) : null}
                         </th>
                       );
                     })}
@@ -93,6 +127,7 @@ export function AttendanceTable({
                     </td>
                     {Array.from({ length: chunkSize }).map((_, idx) => {
                       const checked = attArr[idx];
+                      const weekIndex = chunkIdx * chunkSize + idx;
                       return (
                         <td
                           key={idx}
@@ -100,8 +135,15 @@ export function AttendanceTable({
                             idx !== chunkSize ? ' border-b border-gray-200' : ''
                           }`}
                         >
-                          {chunkIdx * chunkSize + idx < maxWeeks ? (
-                            <StyledCheckbox checked={checked} />
+                          {weekIndex < maxWeeks ? (
+                            <StyledCheckbox
+                              checked={checked}
+                              onClick={
+                                editable
+                                  ? () => handleAttendanceChange(weekIndex, !checked)
+                                  : undefined
+                              }
+                            />
                           ) : null}
                         </td>
                       );
@@ -115,10 +157,18 @@ export function AttendanceTable({
                     </td>
                     {Array.from({ length: chunkSize }).map((_, idx) => {
                       const checked = assArr[idx];
+                      const weekIndex = chunkIdx * chunkSize + idx;
                       return (
                         <td key={idx} className="text-center align-middle">
-                          {chunkIdx * chunkSize + idx < maxWeeks ? (
-                            <StyledCheckbox checked={checked} />
+                          {weekIndex < maxWeeks ? (
+                            <StyledCheckbox
+                              checked={checked}
+                              onClick={
+                                editable
+                                  ? () => handleAssignmentChange(weekIndex, !checked)
+                                  : undefined
+                              }
+                            />
                           ) : null}
                         </td>
                       );
@@ -153,13 +203,21 @@ export function AttendanceTable({
               {Array.from({ length: maxWeeks }).map((_, idx) => (
                 <tr key={idx}>
                   <td className="bg-gray-100 py-2.5 text-center align-middle font-bold">
-                    <Label size="md">{`${idx + 1}주차`}</Label>
+                    <Label size="md">
+                      {roundStatuses[idx] ? `${roundStatuses[idx].round}주차` : `${idx + 1}주차`}
+                    </Label>
                   </td>
                   <td className="border-b border-gray-200 text-center align-middle">
-                    <StyledCheckbox checked={att[idx]} />
+                    <StyledCheckbox
+                      checked={att[idx]}
+                      onClick={editable ? () => handleAttendanceChange(idx, !att[idx]) : undefined}
+                    />
                   </td>
                   <td className="border-b border-gray-200 text-center align-middle">
-                    <StyledCheckbox checked={ass[idx]} />
+                    <StyledCheckbox
+                      checked={ass[idx]}
+                      onClick={editable ? () => handleAssignmentChange(idx, !ass[idx]) : undefined}
+                    />
                   </td>
                 </tr>
               ))}

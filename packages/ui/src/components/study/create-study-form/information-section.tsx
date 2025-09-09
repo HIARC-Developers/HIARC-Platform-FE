@@ -15,6 +15,7 @@ export function InformaionSection({
       </Label>
       <div className="flex w-full  items-end gap-2">
         <LabeledCalanderInput
+          required
           label="모집기한"
           placeholder="일시를 선택해주세요"
           value={cruitPeriod}

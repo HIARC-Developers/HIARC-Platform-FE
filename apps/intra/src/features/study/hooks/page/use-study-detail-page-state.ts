@@ -22,22 +22,11 @@ export function useStudyDetailPageState() {
   };
 
   const handleApplyClick = (): void => {
-    DialogUtil.showCustom(
-      React.createElement(
-        'div',
-        null,
-        '기초/초급 스터디는 동일 시간에 진행되어 중복 신청이 불가합니다.',
-        React.createElement('br', null),
-        React.createElement('br', null),
-        '신청을 완료하시겠습니까?'
-      ),
-      {
-        title: '유의사항',
-        size: 'md',
-        onConfirm: () => applyToStudy(studyId),
-        confirmText: '신청하기',
-        cancelText: '취소',
-      }
+    DialogUtil.showConfirm(
+      '기초/초급 스터디는 동일 시간에 진행되어 중복 신청이 불가합니다.',
+      () => applyToStudy(studyId),
+      undefined,
+      { title: '유의사항' }
     );
   };
 

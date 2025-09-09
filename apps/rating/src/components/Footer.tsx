@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import reallogo from './../assets/hiarc-reallogo.png';
-import FontStyle from '../ui/FontStyle';
+import FontStyle from '../util/FontStyle';
 import ContactInfo from '../atoms/MediaListCell';
 
 const Wrapper = styled.div`

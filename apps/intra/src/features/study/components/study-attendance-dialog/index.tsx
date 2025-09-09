@@ -67,7 +67,7 @@ export function StudyAttendanceDialog({ data }: StudyAttendanceDialogProps): Rea
           onChange={setAttendanceCode}
         />
         <DialogFooter>
-          <div className="mt-6 flex w-full gap-2">
+          <div className="mt-6 flex w-full flex-row gap-2">
             <Button variant="secondary" className="w-full" size="lg" onClick={handleCancel}>
               <Label size="lg">취소</Label>
             </Button>

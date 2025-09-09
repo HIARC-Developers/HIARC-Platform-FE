@@ -6,7 +6,7 @@ import { useImageUpload } from '@/features/announcement/hooks/use-image-upload';
 import { CreateAnnouncementForm, CreateAnnouncementRequest } from '@hiarc-platform/shared';
 import { useSemesterStoreInit, useSemesterStore } from '@/shared/hooks/use-semester-store';
 import { useStudyOptions } from '@/features/study/hooks';
-import { AnnouncementWrite, BackButton, DialogUtil, Divider, Title } from '@hiarc-platform/ui';
+import { AnnouncementDesktopHeader, AnnouncementWrite, DialogUtil } from '@hiarc-platform/ui';
 
 export function AnnouncementWritePage(): React.ReactElement {
   const router = useRouter();
@@ -130,18 +130,12 @@ export function AnnouncementWritePage(): React.ReactElement {
   };
 
   return (
-    <>
-      <div className="hidden md:block">
-        <div className="flex w-full flex-col items-center gap-3 pb-6">
-          <BackButton onClick={handleBackClick} />
-          <div className="flex w-full items-center justify-between">
-            <Title size="sm" weight="bold">
-              공지사항 작성
-            </Title>
-          </div>
-          <Divider variant="horizontal" size="full" />
-        </div>
-      </div>
+    <div>
+      <AnnouncementDesktopHeader
+        title="공지사항 작성"
+        className="pb-6"
+        onBackClick={handleBackClick}
+      />
       <AnnouncementWrite
         studyOptions={studyOptions}
         initialAnnouncementType={initialType || 'GENERAL'}
@@ -151,6 +145,6 @@ export function AnnouncementWritePage(): React.ReactElement {
           handleSubmit(data as CreateAnnouncementForm);
         }}
       />
-    </>
+    </div>
   );
 }

@@ -104,11 +104,15 @@ export function StudySearchDialog({
 
   return (
     <Dialog open={true} onOpenChange={(open) => !open && handleCancel()}>
-      <DialogContent fullscreen showBackground={showBackground}>
-        <DialogHeader>
-          <DialogTitle>스터디 검색</DialogTitle>
+      <DialogContent 
+        fullscreen 
+        showBackground={showBackground}
+        className="flex max-h-screen flex-col"
+      >
+        <DialogHeader className="flex-shrink-0">
+          <DialogTitle>상세 검색</DialogTitle>
         </DialogHeader>
-        <div className="pt-6">
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto pt-6">
           <div className={cn('flex flex-col gap-6')}>
             <LabeledSelector
               placeholder="진행 학기를 선택하세요"
@@ -124,14 +128,15 @@ export function StudySearchDialog({
               onChange={setSearchTitle}
               placeholder="스터디명을 입력하세요"
             />
-            <div className="flex w-full items-center gap-2">
-              <Button variant="line_secondary" size="md" className="w-full" onClick={handleReset}>
-                초기화
-              </Button>
-              <Button variant="fill" size="md" className="w-full" onClick={handleSave}>
-                검색
-              </Button>
-            </div>
+          </div>
+          <div className="flex-1" />
+          <div className="mt-4 flex w-full flex-shrink-0 items-center gap-2">
+            <Button variant="line_secondary" size="md" className="w-full" onClick={handleReset}>
+              초기화
+            </Button>
+            <Button variant="fill" size="md" className="w-full" onClick={handleSave}>
+              검색
+            </Button>
           </div>
         </div>
       </DialogContent>

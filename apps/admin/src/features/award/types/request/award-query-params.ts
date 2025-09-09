@@ -2,7 +2,7 @@ export interface AwardQueryParams {
   organization?: string;
   awardName?: string;
   memberName?: string;
-  handle?: string;
+  bojHandle?: string;
   awardYear?: number;
   isOfficial?: boolean;
   page?: number;

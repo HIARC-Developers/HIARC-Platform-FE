@@ -63,7 +63,7 @@ export const useAwardListColumns = (): Array<ColumnDef<Award>> => {
       ),
       cell: ({ row }: { row: { original: Award } }) => (
         <Label size="md" weight="regular">
-          {row.original.memberName ?? '-'}({row.original.handle ?? '-'})
+          {row.original.memberName ?? '-'}({row.original.bojHandle ?? '-'})
         </Label>
       ),
       footer: (props) => props.column.id,

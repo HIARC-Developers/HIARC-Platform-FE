@@ -1,4 +1,4 @@
-import LayOut from '../ui/Layout';
+import LayOut from '../util/Layout';
 import DivBlock from '../block/DivBlock';
 import StreakBox from '../block/StreakBox';
 import EventBlock from '../block/EventBlock';

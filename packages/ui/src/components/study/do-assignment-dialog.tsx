@@ -1,5 +1,6 @@
 'use client';
 
+import { Assignment } from '@hiarc-platform/shared';
 import { Button } from '../button';
 import {
   Dialog,
@@ -10,12 +11,13 @@ import {
   DialogFooter,
 } from '../dialog/dialog';
 import { Label } from '../label/label';
+import Image from 'next/image';
 
 interface DoAssignmentDialogProps {
   lectureRound: number;
   studyId: number;
   lectureId: number;
-  assignment: any; // Assignment 타입이 UI 패키지에서 접근할 수 없으므로 any로 처리
+  assignment?: Assignment;
   isLoading?: boolean;
 }
 
@@ -35,15 +37,15 @@ export function DoAssignmentDialog({
   const isRequiredProblemValid =
     assignment?.requiredProblemUrl && isValidUrl(assignment.requiredProblemUrl);
   const isPracticeProblemValid =
-    assignment?.practiceProblems?.url && isValidUrl(assignment.practiceProblems.url);
+    assignment?.practiceProblemUrl && isValidUrl(assignment.practiceProblemUrl);
   return (
     <Dialog defaultOpen>
       <DialogContent>
-        <DialogHeader>
+        <DialogHeader className="w-full items-start">
           <DialogTitle>[{lectureRound}회차] 과제</DialogTitle>
         </DialogHeader>
         <div className="mt-6 flex justify-between">
-          <Label>필수 문제</Label>
+          <Label size="lg">필수 문제</Label>
           <Button
             size="xs"
             variant="secondary"
@@ -54,27 +56,45 @@ export function DoAssignmentDialog({
             }}
             disabled={!isRequiredProblemValid}
           >
-            <Label>백준 바로가기</Label>
+            <Label size="md">백준 바로가기</Label>
+            {isRequiredProblemValid && (
+              <Image
+                src="/shared-assets/Open.svg"
+                alt="external-link"
+                width={16}
+                height={16}
+                className="ml-1"
+              />
+            )}
           </Button>
         </div>
 
         <div className="mt-6 flex justify-between">
-          <Label>연습 문제</Label>
+          <Label size="lg">연습 문제</Label>
           <Button
             size="xs"
             variant="secondary"
             onClick={() => {
               if (isPracticeProblemValid) {
-                window.open(assignment.practiceProblems.url, '_blank');
+                window.open(assignment.practiceProblemUrl, '_blank');
               }
             }}
             disabled={!isPracticeProblemValid}
           >
-            <Label>백준 바로가기</Label>
+            <Label size="md">백준 바로가기</Label>
+            {isPracticeProblemValid && (
+              <Image
+                src="/shared-assets/Open.svg"
+                alt="external-link"
+                width={16}
+                height={16}
+                className="ml-1"
+              />
+            )}
           </Button>
         </div>
 
-        <DialogFooter className="mt-6">
+        <DialogFooter className="mt-6 flex flex-row">
           <DialogClose asChild>
             <Button variant="secondary" size="sm" className="w-full">
               취소

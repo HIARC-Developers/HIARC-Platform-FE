@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { AdminExplain } from '../../ui/AdminExplain';
-import { Ex } from '../../ui/AdminExplain';
-import Color from '../../ui/Color';
+import { AdminExplain } from '../../util/AdminExplain';
+import { Ex } from '../../util/AdminExplain';
+import Color from '../../util/Color';
 import { useState } from 'react';
 import { sendAdminInput } from '../../api/AdminApi';
 

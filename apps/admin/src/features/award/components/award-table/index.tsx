@@ -8,24 +8,28 @@ import { Award } from '../../../../../../../packages/shared/src/types/award/awar
 interface CompetitionTableProps {
   data?: PageableModel<Award> | null;
   className?: string;
+  onPageChange?(page: number): void;
 }
 
-export function CompetitionTable({ data, className }: CompetitionTableProps): React.ReactElement {
+export function CompetitionTable({
+  data,
+  className,
+  onPageChange,
+}: CompetitionTableProps): React.ReactElement {
   const column = useAwardListColumns();
   const columns = useMemo(() => column, [column]);
   const [globalFilter, setGlobalFilter] = useState('');
-  const [currentPage, setCurrentPage] = useState(0);
 
   const table = useTable({
     columns,
     data: data?.content ?? [],
-    pageState: [currentPage, setCurrentPage],
+    pageState: [data?.number ?? 0, () => {}], // Use server page state, disable local state
     totalPages: data?.totalPages ?? 0,
     globalFilterState: [globalFilter, setGlobalFilter],
   });
 
   const handlePageChange = (page: number): void => {
-    setCurrentPage(page);
+    onPageChange?.(page - 1);
   };
 
   return (

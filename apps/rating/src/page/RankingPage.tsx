@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-import LayOut from '../ui/Layout';
+import LayOut from '../util/Layout';
 import DivToggleBar from '../components/DivToggleBar';
 import RankingContainer from '../block/RankingContainer';
 import { useSearchParams } from 'react-router-dom';
 import DonutChart from '../atoms/DounutChart';
-import { fetchGraphData } from '../api/RanikingApi';
-import Color from '../ui/Color';
+import { fetchRankingData } from '../api/RankingApi';
+import Color from '../util/Color';
 
 const fadeIn = keyframes`
   from {
@@ -69,6 +69,16 @@ const DivPage = () => {
   const [animate, setAnimate] = useState(false);
   const [searchParams] = useSearchParams();
   const [streakRatio, setStreakRatio] = useState<number | null>(null);
+  const [rankingData, setRankingData] = useState<
+    {
+      num: number;
+      bojHandle: string;
+      tier: number;
+      today: number;
+      total: number;
+    }[]
+  >([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const numParam = searchParams.get('num');
@@ -79,12 +89,19 @@ const DivPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const graphData = await fetchGraphData(selected);
-      if (isNaN(graphData)) {
-        console.log('경고: NaN 값이 반환되었습니다.', graphData);
+      try {
+        const data = await fetchRankingData(selected);
+        if (Array.isArray(data.rankingData)) {
+          setRankingData(data.rankingData);
+        } else {
+          setRankingData([]);
+        }
+        setStreakRatio(data.graphData || 0);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : '알 수 없는 오류 발생');
+        setRankingData([]);
         setStreakRatio(0);
-      } else {
-        setStreakRatio(graphData);
       }
     };
     fetchData();
@@ -104,7 +121,7 @@ const DivPage = () => {
       </ButtonWrapper>
       <MainWrapper>
         <AnimatedContainer $animate={animate} $duration="1s">
-          <RankingContainer selected={selected} />
+          <RankingContainer rankingData={rankingData} error={error} />
         </AnimatedContainer>
         <Right>
           <AnimatedContainer $animate={animate} key={selected} $duration="2s">
