@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { ShowAttendanceCodeDialogWrapper } from './dialog/ShowAttendanceCodeDialogWrapper';
 import { CreateAssignmentDialogWrapper } from './dialog/CreateAssignmentDialogWrapper';
 import { useDeleteLecture } from '../../hooks/study-instructor/mutation/use-delete-lecture';
+import { CheckAttendanceCodeDialog } from './dialog/CheckAttendanceCodeDialog';
+import { DoAssignmentDialogWrapper } from './dialog/DoAssignmentDialogWrapper';
 
 interface LectureListTabProps {
   isAdmin?: boolean;
@@ -82,6 +84,27 @@ export function LectureListTab({
     );
   };
 
+  const handleCheckAttendanceClick = (lecture: Lecture): void => {
+    DialogUtil.showComponent(
+      <CheckAttendanceCodeDialog
+        studyId={studyId ?? 0}
+        lectureRound={lecture.round ?? 0}
+        lectureName={lecture.title ?? ''}
+        studyName={studyName}
+      />
+    );
+  };
+
+  const handleDoAssignmentClick = (lecture: Lecture) => {
+    DialogUtil.showComponent(
+      <DoAssignmentDialogWrapper
+        studyId={studyId ?? 0}
+        lectureRound={lecture.round ?? 0}
+        lectureId={lecture.round ?? 0}
+      />
+    );
+  };
+
   const handleEditClick = (lecture: Lecture): void => {
     if (!lecture.announcementId) {
       console.error('강의 수정 실패: announcementId가 없습니다.');
@@ -128,6 +151,8 @@ export function LectureListTab({
       onShowAttendanceClick={handleShowAttendanceClick}
       onCreateAssignmentClick={handleCreateAssignmentClick}
       onShowAssignmentClick={handleShowAssignmentClick}
+      onAttendanceCheckClick={handleCheckAttendanceClick}
+      onDoAssignmentClick={handleDoAssignmentClick}
       onEditClick={handleEditClick}
       onDeleteClick={handleDeleteClick}
     />

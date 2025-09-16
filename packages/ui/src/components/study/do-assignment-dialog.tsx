@@ -15,8 +15,6 @@ import Image from 'next/image';
 
 interface DoAssignmentDialogProps {
   lectureRound: number;
-  studyId: number;
-  lectureId: number;
   assignment?: Assignment;
   isLoading?: boolean;
 }

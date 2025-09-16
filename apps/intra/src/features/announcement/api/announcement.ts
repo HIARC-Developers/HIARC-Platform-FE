@@ -4,6 +4,7 @@ import {
   AnnouncementSummary,
   Announcement,
   CreateAnnouncementRequest,
+  ImageSource,
 } from '@hiarc-platform/shared';
 import { AnnouncementQueryParams } from '../types/request/announcement-query-params';
 import { UpdateAnnouncementRequest } from '../types/request/update-announcement-request';
@@ -102,5 +103,25 @@ export const announcementApi = {
       announcementData
     );
     return Announcement.fromJson(response.data);
+  },
+
+  /**
+   * 이미지 업로드를 위한 presigned URL을 가져오는 API입니다.
+   * @param studyId - 스터디의 ID입니다.
+   * @param contentType - 업로드할 이미지의 콘텐츠 타입입니다.
+   * @returns presigned URL과 업로드 정보를 반환합니다.
+   */
+  GET_IMAGE_UPLOAD_URL: async (studyId: number, contentType: string): Promise<ImageSource> => {
+    console.log('[ADMIN ANNOUNCEMENT API] GET_IMAGE_UPLOAD_URL 요청:', { contentType });
+    try {
+      const response = await apiClient.get<ImageSource>(
+        `/studies/${studyId}/instructor/image/upload-url?contentType=${encodeURIComponent(contentType)}`
+      );
+      console.log('[ADMIN ANNOUNCEMENT API] GET_IMAGE_UPLOAD_URL 응답:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('[ADMIN ANNOUNCEMENT API] GET_IMAGE_UPLOAD_URL 에러:', error);
+      throw error;
+    }
   },
 };

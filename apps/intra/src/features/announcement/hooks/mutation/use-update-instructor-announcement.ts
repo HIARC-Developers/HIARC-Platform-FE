@@ -22,8 +22,13 @@ export const useUpdateInstructorAnnouncement = () => {
       queryClient.invalidateQueries({ queryKey: ['announcements'] });
       queryClient.invalidateQueries({ queryKey: ['announcement', announcementId.toString()] });
       queryClient.invalidateQueries({ queryKey: ['study', studyId] });
-      DialogUtil.showSuccess('공지사항이 성공적으로 업데이트되었습니다.', () => {
-        router.back();
+      DialogUtil.showSuccess('공지사항이 성공적으로 수정되었습니다.', () => {
+        const targetStudyId = studyId;
+        if (targetStudyId) {
+          router.push(`/study/${studyId}`);
+        } else {
+          router.back();
+        }
       });
     },
   });
